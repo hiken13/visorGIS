@@ -21,24 +21,29 @@ and open the template in the editor.
 
                 <div class="container" id="Panel" style="background-color: gray; height:400px; width:200px;">
                 </div>
-            </div>
-            
-            
-            <div class="btn-group" style=" top: 5%">            
-                <a href="#" class="btn btn-default btn-sm">Cambiar tamaño</a>            
-            </div>  
+            </div>          
 
-            <div class="container" id="Panel" style="background-color: gray; height:480px; width:640px; position: relative">
+            <div class="container" id="Panel" style="background-color: gray; height:480px; width:640px">
 
             </div>
+            <div id="panelBotones">
+                <div class="btn-group" style=" top: 5%">            
+                    <a href="#" class="btn btn-default btn-sm">+</a>
+                    <a href="#" class="btn btn-default btn-sm">-</a>               
+                    <a href="#" class="btn btn-default btn-sm">Cambiar tamaño</a>  
+                </div>
+                <br>
+                <a href="#" class="btn btn-default btn-sm glyphicon  glyphicon-arrow-up"></a>
+                <div>
+                    <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-arrow-left"></a>
+                    <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-arrow-right"></a>
+                </div>
+                <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down"></a>
+            </div>
 
-            <div class="btn-group" style=" top: 5%">            
-                <a href="#" class="btn btn-default btn-sm">+</a>
-                <a href="#" class="btn btn-default btn-sm">-</a>               
-            </div>  
-    </center>
-    <?php
-    // put your code here
-    ?>
-</body>
+
+            <?php
+            // put your code here
+            ?>
+        </body>
 </html>
