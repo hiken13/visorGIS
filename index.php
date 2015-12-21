@@ -14,13 +14,24 @@ and open the template in the editor.
     </head>
     <center>
         <body class="bg-info">
+            <div class="pull-left">
+                <div class="btn-group" style=" top: 5%">            
+                    <a href="#" class="btn btn-default btn-sm">Herramientas</a>            
+                </div>  
+
+                <div class="container" id="Panel" style="background-color: gray; height:400px; width:200px;">
+                </div>
+            </div>
+            
+            
             <div class="btn-group" style=" top: 5%">            
                 <a href="#" class="btn btn-default btn-sm">Cambiar tamaño</a>            
             </div>  
-            <div ng-view="" class="container" id="Panel" style="background-color: gray; height:480px; width:640px; position: relative; top: 100%">
+
+            <div class="container" id="Panel" style="background-color: gray; height:480px; width:640px; position: relative">
 
             </div>
-            <label>Zoom</label>
+
             <div class="btn-group" style=" top: 5%">            
                 <a href="#" class="btn btn-default btn-sm">+</a>
                 <a href="#" class="btn btn-default btn-sm">-</a>               
