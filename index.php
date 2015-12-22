@@ -27,17 +27,16 @@ and open the template in the editor.
                 </div>
             </div>          
 
-            <div ng-view="vistaPanel"  class="" id="Panel" style="background-color: gray; height:480px; width:640px">
+            <div ng-view="vistaPanel"  class="" id="Panel" style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: absolute; left: 300px; top: 20px">
                 <center>
-                    <img ng-show="capaHosp" src="Queries/Hospitales/imagenHospitales.php?x=640&y=480">
-                    
+                    <img style="position: inherit" ng-show="capaHosp" src="Queries/Hospitales/imagenHospitales.php?x={{sizeX}}&y={{sizeY}}">                    
                 </center>
             </div>
-            <div id="panelBotones">
-                <div class="btn-group" style=" top: 5%">            
+            <div id="panelBotones" style='position: absolute; top: 70%'>
+                <div class="btn-group">            
                     <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-plus"></a>
                     <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-minus"></a>               
-                    <a href="#" class="btn btn-default btn-sm">Cambiar tamaño</a>  
+                    <a href="#" class="btn btn-default btn-sm" ng-click="cambiarTam()">Cambiar tamaño</a>  
                 </div>
                 <br>
                 <a href="#" class="btn btn-default btn-sm glyphicon  glyphicon-arrow-up"></a>
