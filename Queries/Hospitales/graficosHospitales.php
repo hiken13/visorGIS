@@ -10,7 +10,7 @@
 /**
  * Description of newPHPClass
  *
- * @author leoviquez
+ * @author 
  */
 class graficos 
 {

@@ -13,6 +13,8 @@ angular.module('visorGIS', [])
             console.log("Hola");
             $scope.capaHospTxt = "Cargar Capa de Hospitales";
             $scope.capaHosp = false;
+            $scope.capaRios = true;
+            
             
             $scope.cambiarTam = function(){
                 if($scope.sizeX === 640){
