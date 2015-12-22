@@ -23,13 +23,13 @@ and open the template in the editor.
 
                 <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
                     <br>
-                    <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales">Capa de Hoteles</a>
+                    <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales()">{{capaHospTxt}}</a>
                 </div>
             </div>          
 
             <div ng-view="vistaPanel"  class="" id="Panel" style="background-color: gray; height:480px; width:640px">
                 <center>
-                    <img src="imagen.php?x=640&y=480">
+                    <img ng-show="capaHosp" src="Queries/Hospitales/imagenHospitales.php?x=640&y=480">
                     
                 </center>
             </div>

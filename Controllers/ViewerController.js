@@ -8,15 +8,23 @@ angular.module('visorGIS', [])
         .controller('ControllerViewerGIS', function ($scope, $http)
         {
             console.log("Hola");
-
-
-            $http.get("imagen.php?x=640&y=480")
-                    .success(function (data) {
-                        $scope.cursos = data;
-                        console.log(data);
-                    })
-                    .error(function (err) {
-                        console.log("Error cargando el div");
-                    });
-
+            $scope.capaHospTxt = "Cargar Capa de Hospitales";
+            $scope.capaHosp = false;
+            
+            /**
+             * 
+             * @returns {undefined}
+             */
+            $scope.cargarHospitales = function(){
+                console.log("Hola");
+                if($scope.capaHosp === false){
+                    $scope.capaHospTxt = "Ocultar Capa de Hospitales";
+                    $scope.capaHosp = true;
+                }
+                else{
+                    $scope.capaHospTxt = "Cargar Capa de Hospitales";
+                    $scope.capaHosp = false;
+                }
+            };
+           
         });

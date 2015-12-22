@@ -1,5 +1,5 @@
 <?php
-    require './graficos.php';
+    require './graficosHospitales.php';
 
     header('Content-Type: image/png');
     
