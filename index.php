@@ -28,8 +28,8 @@ and open the template in the editor.
             </div>
             <div id="panelBotones">
                 <div class="btn-group" style=" top: 5%">            
-                    <a href="#" class="btn btn-default btn-sm">+</a>
-                    <a href="#" class="btn btn-default btn-sm">-</a>               
+                    <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-plus"></a>
+                    <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-minus"></a>               
                     <a href="#" class="btn btn-default btn-sm">Cambiar tamaño</a>  
                 </div>
                 <br>
