@@ -5,9 +5,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<html>
-    <head ng-app="visorGIS">
+<html ng-app="visorGIS" ng-controller="ControllerViewerGIS">
+    <head >
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+        <script src="./Controllers/ViewerController.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <meta charset="UTF-8">
         <title>GIS Vission</title>
@@ -16,15 +17,21 @@ and open the template in the editor.
         <body class="bg-info">
             <div class="pull-left">
                 <div class="btn-group" style=" top: 5%">            
-                    <a href="#" class="btn btn-default btn-sm">Herramientas</a>            
+                    <a href="#" class="btn btn-default btn-sm">Herramientas</a>  
+
                 </div>  
 
-                <div class="container" id="Panel" style="background-color: gray; height:400px; width:200px;">
+                <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
+                    <br>
+                    <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales">Capa de Hoteles</a>
                 </div>
             </div>          
 
-            <div class="container" id="Panel" style="background-color: gray; height:480px; width:640px">
-
+            <div ng-view="vistaPanel"  class="" id="Panel" style="background-color: gray; height:480px; width:640px">
+                <center>
+                    <img src="imagen.php?x=640&y=480">
+                    
+                </center>
             </div>
             <div id="panelBotones">
                 <div class="btn-group" style=" top: 5%">            
