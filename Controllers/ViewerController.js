@@ -11,7 +11,7 @@ angular.module('visorGIS', [])
             $scope.sizeY = 480; //tamaño inicial de y
             
             console.log("Hola");
-            $scope.capaHospTxt = "Cargar Capa de Hospitales";
+            $scope.capaHospTxt = "Cargar Hospitales";
             $scope.capaHosp = false;
             $scope.capaRios = true;
             
@@ -33,11 +33,11 @@ angular.module('visorGIS', [])
             $scope.cargarHospitales = function(){
                 console.log("Hola");
                 if($scope.capaHosp === false){
-                    $scope.capaHospTxt = "Ocultar Capa de Hospitales";
+                    $scope.capaHospTxt = "Ocultar Hospitales";
                     $scope.capaHosp = true;
                 }
                 else{
-                    $scope.capaHospTxt = "Cargar Capa de Hospitales";
+                    $scope.capaHospTxt = "Cargar Hospitales";
                     $scope.capaHosp = false;
                 }
             };
