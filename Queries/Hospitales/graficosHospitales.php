@@ -41,14 +41,14 @@ class graficos
         
         $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
-        $query="select 	(st_X(st_geometryN(geom,1))-340735.03802508)/430.145515478705 X,
-	 640- (st_y(st_geometryN(geom,1))-955392.16848899) /430.145515478705  Y
+        $query="select 	(st_X(st_geometryN(geom,1))-292369.968163136)/564.017324260508 X,
+	 640- (st_y(st_geometryN(geom,1))-889242.988534586) /564.017324260508  Y
         from hospitales";
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
 
         while ($row=pg_fetch_row($result))
         {
-            imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
+            imagefilledellipse($img, $row[0], $row[1], 8, 8, $red);
             
         }
 

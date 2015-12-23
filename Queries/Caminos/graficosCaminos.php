@@ -42,8 +42,8 @@ class graficos
         $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
         
-        $query="select  (ST_X(ST_GeometryN(c.geom,1))-296480.57186013)/560.63136290052 x,
-	640 - (ST_Y(ST_GeometryN(c.geom,1))-889378.554139937)/560.63136290052 y
+        $query="select  (ST_X(ST_GeometryN(c.geom,1))-292369.968163136)/564.017324260508 x,
+	640 - (ST_Y(ST_GeometryN(c.geom,1))-889242.988534586) /564.017324260508 y
 from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom 
 	FROM caminos) c";
         

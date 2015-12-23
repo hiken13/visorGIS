@@ -80,6 +80,14 @@ and open the template in the editor.
                 </tr>                   
             </table>
             
+            <table style="position: absolute">
+                <tr>
+                    <td>
+                        <img src="Queries/Caminos/imagenCaminos.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                    </td>
+                </tr>                   
+            </table>
+            
             
            
             
