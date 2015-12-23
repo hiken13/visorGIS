@@ -59,12 +59,31 @@ and open the template in the editor.
                 <br>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">{{capaRiosTxt}}</a>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales()">{{capaHospTxt}}</a>
+                <a href="#" class="btn btn-default btn-sm" ng-click="cargarCaminos()">{{capaCamTxt}}</a>
             </div>
         </div>          
 
-        <div id="pcontainer1" class="pancontainer" style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: absolute; left: 350px; top: 20px ">
-            <img ng-show="capaRios" src="Queries/Rios/imagenRios.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
-            <img ng-show="capaHosp" src="Queries/Hospitales/imagenHospitales.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+        <div id="pcontainer1" class="pancontainer" style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+           <table style="position: absolute">
+                <tr>
+                    <td>
+                        <img src="Queries/Hospitales/imagenHospitales.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                    </td>
+                </tr>                   
+            </table>
+           
+            <table style="position: absolute">
+                <tr>
+                    <td>
+                        <img src="Queries/Rios/imagenRios.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                    </td>
+                </tr>                   
+            </table>
+            
+            
+           
+            
+            
             
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>

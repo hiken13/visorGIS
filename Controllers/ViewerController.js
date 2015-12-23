@@ -17,6 +17,9 @@ angular.module('visorGIS', [])
             $scope.capaRiosTxt = "Cargar Rios";
             $scope.capaRios = false;
             
+            $scope.capaCamTxt = "Cargar Caminos";
+            $scope.capaCam = false;
+            
             
             $scope.cambiarTam = function(){
                 if($scope.sizeX === 640){
@@ -45,7 +48,7 @@ angular.module('visorGIS', [])
             };
             
             $scope.cargarRios = function(){
-                 console.log("Hola");
+              
                 if($scope.capaRios === false){
                     $scope.capaRiosTxt = "Ocultar Rios";
                     $scope.capaRios = true;
@@ -53,6 +56,18 @@ angular.module('visorGIS', [])
                 else{
                     $scope.capaRiosTxt = "Cargar Rios";
                     $scope.capaRios = false;
+                }
+            };
+            
+            $scope.cargarCaminos = function(){
+              
+                if($scope.capaCam === false){
+                    $scope.capaCamTxt = "Ocultar Caminos";
+                    $scope.capaCam = true;
+                }
+                else{
+                    $scope.capaCamTxt = "Cargar Caminos";
+                    $scope.capaCam = false;
                 }
             };
            
