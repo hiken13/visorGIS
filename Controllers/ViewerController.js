@@ -10,10 +10,12 @@ angular.module('visorGIS', [])
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y
             
-            console.log("Hola");
+            
             $scope.capaHospTxt = "Cargar Hospitales";
             $scope.capaHosp = false;
-            $scope.capaRios = true;
+            
+            $scope.capaRiosTxt = "Cargar Rios";
+            $scope.capaRios = false;
             
             
             $scope.cambiarTam = function(){
@@ -31,7 +33,7 @@ angular.module('visorGIS', [])
              * @returns {undefined}
              */
             $scope.cargarHospitales = function(){
-                console.log("Hola");
+               
                 if($scope.capaHosp === false){
                     $scope.capaHospTxt = "Ocultar Hospitales";
                     $scope.capaHosp = true;
@@ -39,6 +41,18 @@ angular.module('visorGIS', [])
                 else{
                     $scope.capaHospTxt = "Cargar Hospitales";
                     $scope.capaHosp = false;
+                }
+            };
+            
+            $scope.cargarRios = function(){
+                 console.log("Hola");
+                if($scope.capaRios === false){
+                    $scope.capaRiosTxt = "Ocultar Rios";
+                    $scope.capaRios = true;
+                }
+                else{
+                    $scope.capaRiosTxt = "Cargar Rios";
+                    $scope.capaRios = false;
                 }
             };
            

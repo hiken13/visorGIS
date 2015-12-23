@@ -57,7 +57,7 @@ and open the template in the editor.
 
             <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
                 <br>
-                <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">Cargar Rios</a>
+                <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">{{capaRiosTxt}}</a>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales()">{{capaHospTxt}}</a>
             </div>
         </div>          
@@ -65,6 +65,7 @@ and open the template in the editor.
         <div id="pcontainer1" class="pancontainer" style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: absolute; left: 350px; top: 20px ">
 
             <img ng-show="capaHosp" src="Queries/Hospitales/imagenHospitales.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+            <img ng-show="capaRios" src="Queries/graficosRios/imgaenRios.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
             <div class="btn-group">
