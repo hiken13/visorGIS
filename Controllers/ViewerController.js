@@ -10,25 +10,46 @@ angular.module('visorGIS', [])
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y
             
-            
+            $scope.capaHospUrl="";
             $scope.capaHospTxt = "Cargar Hospitales";
             $scope.capaHosp = false;
             
+            $scope.capaRiosUrl="";
             $scope.capaRiosTxt = "Cargar Rios";
             $scope.capaRios = false;
             
+            $scope.capaCaminosUrl="";
             $scope.capaCamTxt = "Cargar Caminos";
             $scope.capaCam = false;
             
             
             $scope.cambiarTam = function(){
+                
                 if($scope.sizeX === 640){
                     $scope.sizeX = 1024;
                     $scope.sizeY = 840;
+                    if($scope.capaHosp===true){
+                        $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    }
+                    if($scope.capaCam===true){
+                        $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
+                    }
+                    if($scope.capaRios===true){
+                        $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    }
                 }
                 else{
                     $scope.sizeX = 640;
                     $scope.sizeY = 480;
+                    if($scope.capaHosp===true){
+                        $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    }
+                    if($scope.capaCam===true){
+                        $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
+                    }
+                    if($scope.capaRios===true){
+                        $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    }
                 }
             }
             /**
@@ -36,7 +57,7 @@ angular.module('visorGIS', [])
              * @returns {undefined}
              */
             $scope.cargarHospitales = function(){
-               
+               $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
                 if($scope.capaHosp === false){
                     $scope.capaHospTxt = "Ocultar Hospitales";
                     $scope.capaHosp = true;
@@ -48,7 +69,7 @@ angular.module('visorGIS', [])
             };
             
             $scope.cargarRios = function(){
-              
+                $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
                 if($scope.capaRios === false){
                     $scope.capaRiosTxt = "Ocultar Rios";
                     $scope.capaRios = true;
@@ -60,7 +81,7 @@ angular.module('visorGIS', [])
             };
             
             $scope.cargarCaminos = function(){
-              
+              $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
                 if($scope.capaCam === false){
                     $scope.capaCamTxt = "Ocultar Caminos";
                     $scope.capaCam = true;

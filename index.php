@@ -63,11 +63,11 @@ and open the template in the editor.
             </div>
         </div>          
 
-        <div id="pcontainer1" class="pancontainer" style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+        <div style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
             <table style="position: absolute">
                 <tr>
                     <td>
-                        <img ng-show="capaCam" src="Queries/Caminos/imagenCaminos.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                        <img ng-show="capaCam" src="{{capaCaminosUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
                     </td>
                 </tr>                   
             </table>            
@@ -75,7 +75,7 @@ and open the template in the editor.
             <table style="position: absolute">
                 <tr>
                     <td>
-                        <img  ng-show="capaRios" src="Queries/Rios/imagenRios.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                        <img  ng-show="capaRios" src="{{capaRiosUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
                     </td>
                 </tr>                   
             </table>
@@ -83,7 +83,7 @@ and open the template in the editor.
             <table style="position: absolute">
                 <tr>
                     <td>
-                        <img ng-show="capaHosp"src="Queries/Hospitales/imagenHospitales.php?x={{sizeX}}&y={{sizeY}}" width="{{sizeX}}" height="{{sizeY}}" />               
+                        <img ng-show="capaHosp" src="{{capaHospUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
                     </td>
                 </tr>                   
             </table>
