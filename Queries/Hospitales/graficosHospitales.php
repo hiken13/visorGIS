@@ -28,6 +28,7 @@ class graficos
         $trans = imagecolorallocatealpha($img, 255, 255, 255, 127);
         $red = imagecolorallocatealpha($img, 255, 0, 0, 63);
         $blue = imagecolorallocatealpha($img, 0, 0, 255, 63);
+        
         imagefilltoborder($img, 0, 0, $trans, $trans);
         imagesavealpha($img, true);
 

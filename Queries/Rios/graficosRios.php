@@ -31,8 +31,6 @@ class graficos
         imagefilltoborder($img, 0, 0, $trans, $trans);
         imagesavealpha($img, true);
 
-//        imagefilledrectangle($img, 0, 0, 200, 200, $red);
-//        imagefilledrectangle($img, 100, 100, 300, 300, $blue);
 
         $host='localhost';
         $db='cursoGIS';
@@ -42,9 +40,10 @@ class graficos
         $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
         
-        $query="select (ST_X(ST_geometryn(r.geom,1)) - 292369.968163136)/564.017324260508 x,
-	640 - (ST_Y(ST_geometryn(r.geom,1))-889242.988534586)/564.017324260508 y
-from (select ((ST_DumpPoints(ST_geometryn(geom,1))).geom) geom from rios) r";
+        $query="select  (ST_X(ST_GeometryN(r.geom,1))-292369.968163136)/564.017324260508 x,
+	640 - (ST_Y(ST_GeometryN(r.geom,1))-889242.988534586) /564.017324260508 y
+from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom 
+	from rios) r";
         
         
         
