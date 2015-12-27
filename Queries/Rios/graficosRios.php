@@ -40,19 +40,28 @@ class graficos
         $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
         
-        $query="select  (ST_X(ST_GeometryN(r.geom,1))-292369.968163136)/564.017324260508 x,
-	640 - (ST_Y(ST_GeometryN(r.geom,1))-889242.988534586) /564.017324260508 y
-from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom 
-	from rios) r";
+        $query = "select r.gid gid,
+	string_agg(CAST(((ST_X(ST_GeometryN(r.geom,1))-296480.57186013)/560.63136290052) as varchar(100)),', ') x,
+	string_agg(CAST((640 - (ST_Y(ST_GeometryN(r.geom,1))-889378.554139937)/560.63136290052) as varchar(100)),', ') y
+from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom, gid 
+	FROM rios) r
+	group by gid";
         
         
         
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
 
-        while ($row=pg_fetch_row($result))
-        {
+        while ($row = pg_fetch_row($result)) {
             //imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
-           imagefilledellipse($img, $row[0], $row[1], 1, 1, $blue);
+
+
+
+            $arrayX = explode(", ", $row[1]);
+            $arrayY = explode(", ", $row[2]);
+
+            for ($i = 0; $i < count($arrayX)-1; ++$i) {
+                imageline($img, $arrayX[$i], $arrayY[$i], $arrayX[$i+1], $arrayY[$i + 1], $blue);
+            }
         }
 
         return ($img);
