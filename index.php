@@ -15,6 +15,7 @@ and open the template in the editor.
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
         <script src="./Controllers/ViewerController.js"></script>
+        <script type="text/javascript" src="./TableMaker.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <meta charset="UTF-8">
         <title>GIS Vission</title>
@@ -38,14 +39,14 @@ and open the template in the editor.
 
         <script>
 
-            var panimage1 // register arbitrary variable
+            var panimage1; // register arbitrary variable
             jQuery(function ($) {
                 panimage1 = new imagepanner({
                     wrapper: $('#pcontainer1'), // jQuery selector to image container
                     imgpos: [100, 300], // initial image position- x, y
                     maxlevel: 4 // maximum zoom level
-                })
-            })
+                });
+            });
 
         </script>   
     </head>
@@ -102,5 +103,10 @@ and open the template in the editor.
         <?php
         // put your code here
         ?>
+        <div id="myDynamicTable">
+        </div>
+        <script>
+                    addTable();
+        </script>
     </body>
 </html>
