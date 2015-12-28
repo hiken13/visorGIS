@@ -59,9 +59,9 @@ and open the template in the editor.
             <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
                 <br>
                 <table>
-                    <tr>
+                    <tr ng-repeat="capa in capas">
                         <td>
-                            <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">{{capaRiosTxt}}</a>
+                            <a href="#" class="btn btn-default btn-sm" ng-click="controlarVisualizacion(capa.prioridad)">{{capa.nombre}}</a>
                         </td>
                         <td>
 
@@ -69,36 +69,42 @@ and open the template in the editor.
                             <a href="#" class=" btn-default  glyphicon glyphicon-arrow-down" ng-click=""></a>                        
                         </td>
                     </tr>
-                </table>                
-                <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales()">{{capaHospTxt}}</a>
-                <a href="#" class="btn btn-default btn-sm" ng-click="cargarCaminos()">{{capaCamTxt}}</a>
+                </table>                              
             </div>
         </div>          
 
-        <div style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
-            <table style="position: absolute">
-                <tr>
-                    <td>
-                        <img ng-show="capaCam" src="{{capaCaminosUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
-                    </td>
-                </tr>                   
-            </table>            
+        <div  style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+            <div ng-repeat="capa in capas">
+                <table style="position: absolute" ng-show="capa.visible">
+                    <tr>
+                        <td>
+                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
+                            {{capa.nombre}}
+                        </td>
+                    </tr>                   
+                </table>            
+            </div>
+            <div ng-repeat="capa in capas">
+                <table style="position: absolute" ng-show="capa.visible">
+                    <tr>
+                        <td>
+                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
+                            {{capa.nombre}}
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
 
-            <table style="position: absolute">
-                <tr>
-                    <td>
-                        <img  ng-show="capaRios" src="{{capaRiosUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
-                    </td>
-                </tr>                   
-            </table>
-
-            <table style="position: absolute">
-                <tr>
-                    <td>
-                        <img ng-show="capaHosp" src="{{capaHospUrl}}" width="{{sizeX}}" height="{{sizeY}}" />               
-                    </td>
-                </tr>                   
-            </table>
+            <div ng-repeat="capa in capas" ng-show="capa.visible">
+                <table style="position: absolute">
+                    <tr>
+                        <td>
+                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
+                            {{capa.nombre}}
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
 
 
         </div>

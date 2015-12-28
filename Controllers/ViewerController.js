@@ -9,101 +9,115 @@ angular.module('visorGIS', [])
         {
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y
-            
-            $scope.capaHospUrl="";
+
+            $scope.capaHospUrl = "";
             $scope.capaHospTxt = "Cargar Hospitales";
             $scope.capaHosp = false;
-            
-            $scope.capaRiosUrl="";
+
+            $scope.capaRiosUrl = "";
             $scope.capaRiosTxt = "Cargar Rios";
             $scope.capaRios = false;
-            
-            $scope.capaCaminosUrl="";
+
+            $scope.capaCaminosUrl = "";
             $scope.capaCamTxt = "Cargar Caminos";
             $scope.capaCam = false;
-            
+
+            $scope.urlHospitales = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+            $scope.urlRios = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+            $scope.urlCaminos = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+
+
+            //arreglo que contiene capas, representadas por objetos
             $scope.capas = [
+                
                 {
-                    nombre: "Hospitales",
-                    prioridad:0,                    
-                    visible: true,
-                    url: "Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY                    
+                    nombre: "Rios", //nombre de la capa
+                    prioridad: 0, // prioridad de la capa
+                    visible: false, // visible u opculto
+                    url: "" // dirección para crear la imagen
                 },
                 {
-                    nombre: "Rios",
-                    prioridad:0,                    
-                    visible: true,
-                    url: "Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY
+                    nombre: "Hospitales",
+                    prioridad: 1,
+                    visible: false,
+                    url: ""
+                },
+                {
+                    nombre: "Caminos",
+                    prioridad: 2,
+                    visible: false,
+                    url: ""
                 }
-            ];                                   
-            
-            $scope.cambiarTam = function(){
-                
-                if($scope.sizeX === 640){
+            ];
+
+            $scope.cambiarTam = function () {
+
+                if ($scope.sizeX === 640) {
                     $scope.sizeX = 1024;
                     $scope.sizeY = 840;
-                    if($scope.capaHosp===true){
-                        $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    if ($scope.capaHosp === true) {
+                        $scope.capaHospUrl = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
-                    if($scope.capaCam===true){
-                        $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
+                    if ($scope.capaCam === true) {
+                        $scope.capaCaminosUrl = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
-                    if($scope.capaRios===true){
-                        $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    if ($scope.capaRios === true) {
+                        $scope.capaRiosUrl = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
                 }
-                else{
+                else {
                     $scope.sizeX = 640;
                     $scope.sizeY = 480;
-                    if($scope.capaHosp===true){
-                        $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    if ($scope.capaHosp === true) {
+                        $scope.capaHospUrl = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
-                    if($scope.capaCam===true){
-                        $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
+                    if ($scope.capaCam === true) {
+                        $scope.capaCaminosUrl = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
-                    if($scope.capaRios===true){
-                        $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
+                    if ($scope.capaRios === true) {
+                        $scope.capaRiosUrl = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                     }
                 }
             }
-            /**
-             * funcion para cargar u ocultar la capa de hospitales
+            
+
+            /*
+             * Funcion para controlar la opcion de ocultar y mostrar una determinada capa
+             * @param {type} id entero que además de ser id, funciona para representar la posicion
+             * del objeto dentro del arreglo
              * @returns {undefined}
              */
-            $scope.cargarHospitales = function(){
-               $scope.capaHospUrl="Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
-                if($scope.capaHosp === false){
-                    $scope.capaHospTxt = "Ocultar Hospitales";
-                    $scope.capaHosp = true;
+            $scope.controlarVisualizacion = function (id) {
+
+                if ($scope.capas[id].visible === false) {
+                    $scope.capas[id].visible = true;
+                    
+                    //si es la primera vez que se muestran
+                    if ($scope.capas[id].url === "") {
+                        
+                        //mostrar la capa de hospitales si es el caso
+                        if ($scope.capas[id].nombre === "Hospitales") {
+                            $scope.capas[id].url = $scope.urlHospitales;
+                         
+                        }
+                        
+                        //mostrar la capa de caminos si es el caso
+                        else if ($scope.capas[id].nombre === "Caminos") {
+                            $scope.capas[id].url = $scope.urlCaminos;
+                         
+                        }
+                        //mostrar la capa de Rios si es el caso
+                        else if ($scope.capas[id].nombre === "Rios") {
+                            $scope.capas[id].url = $scope.urlRios;                         
+                        }
+                    }
                 }
-                else{
-                    $scope.capaHospTxt = "Cargar Hospitales";
-                    $scope.capaHosp = false;
+                
+                //si se solicita un cambio en el estado de visualizacion y se sabe que
+                // esta mostrandose entonces se oculta
+                else {
+                    $scope.capas[id].visible = false;
                 }
+
             };
-            
-            $scope.cargarRios = function(){
-                $scope.capaRiosUrl="Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY;
-                if($scope.capaRios === false){
-                    $scope.capaRiosTxt = "Ocultar Rios";
-                    $scope.capaRios = true;
-                }
-                else{
-                    $scope.capaRiosTxt = "Cargar Rios";
-                    $scope.capaRios = false;
-                }
-            };
-            
-            $scope.cargarCaminos = function(){
-              $scope.capaCaminosUrl="Queries/Caminos/imagenCaminos.php?x="+$scope.sizeX+"&y="+$scope.sizeY;           
-                if($scope.capaCam === false){
-                    $scope.capaCamTxt = "Ocultar Caminos";
-                    $scope.capaCam = true;
-                }
-                else{
-                    $scope.capaCamTxt = "Cargar Caminos";
-                    $scope.capaCam = false;
-                }
-            };
-           
         });
