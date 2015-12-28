@@ -22,6 +22,20 @@ angular.module('visorGIS', [])
             $scope.capaCamTxt = "Cargar Caminos";
             $scope.capaCam = false;
             
+            $scope.capas = [
+                {
+                    nombre: "Hospitales",
+                    prioridad:0,                    
+                    visible: true,
+                    url: "Queries/Hospitales/imagenHospitales.php?x="+$scope.sizeX+"&y="+$scope.sizeY                    
+                },
+                {
+                    nombre: "Rios",
+                    prioridad:0,                    
+                    visible: true,
+                    url: "Queries/Rios/imagenRios.php?x="+$scope.sizeX+"&y="+$scope.sizeY
+                }
+            ];                                   
             
             $scope.cambiarTam = function(){
                 

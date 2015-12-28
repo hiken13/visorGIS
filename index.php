@@ -58,7 +58,18 @@ and open the template in the editor.
 
             <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
                 <br>
-                <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">{{capaRiosTxt}}</a>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="#" class="btn btn-default btn-sm" ng-click="cargarRios()">{{capaRiosTxt}}</a>
+                        </td>
+                        <td>
+
+                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-up" ng-click=""></a>                        
+                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-down" ng-click=""></a>                        
+                        </td>
+                    </tr>
+                </table>                
                 <a href="#" class="btn btn-default btn-sm" ng-click="cargarHospitales()">{{capaHospTxt}}</a>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cargarCaminos()">{{capaCamTxt}}</a>
             </div>
