@@ -1,5 +1,5 @@
 <?php
-
+//http://localhost:8000/Queries/Distritos/imagenDistritos.php?x=1280&y=630
 require './graficosDistritos.php';
 
 header('Content-Type: image/png');
