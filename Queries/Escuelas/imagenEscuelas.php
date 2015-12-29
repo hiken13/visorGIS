@@ -1,5 +1,5 @@
 <?php
-    require './graficosCaminos.php';
+    require './graficosEscuelas.php';
 
     header('Content-Type: image/png');
     

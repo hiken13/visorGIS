@@ -7,6 +7,7 @@ and open the template in the editor.
 
 <html ng-app="visorGIS" ng-controller="ControllerViewerGIS">
     <head >
+        <link rel="stylesheet" type="text/css" href="styles/estilos.css">
         <link rel="stylesheet" href="imagepanner.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="jquery.kinetic.min.js" type="text/javascript"></script>
@@ -53,20 +54,22 @@ and open the template in the editor.
     <body class="bg-info">
         <div class="pull-left">
             <div class="btn-group" style=" top: 5%">            
-                <a href="#" class="btn btn-default btn-sm">Herramientas</a>  
+                <a href="#" class="btn btn-default btn-sm disabled">Herramientas</a>  
             </div>  
 
-            <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
+            <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:225px;">
                 <br>
                 <table>
                     <tr ng-repeat="capa in capas |orderBy:'prioridad':true">
                         <td>
-                            <a href="#" class="btn btn-default btn-sm" ng-click="controlarVisualizacion(capa.prioridad)">{{capa.nombre}}</a>
+                            <h1 class="label label-default">{{capa.nombre}}</h1>
                         </td>
-                        <td>
+                        <td style="padding-left: 10px; padding-bottom: 2px">
 
-                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-up" ng-click="bajar(capa.prioridad)"></a>                        
-                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-down" ng-click="subir(capa.prioridad)"></a>                        
+                            <a href="#" class="btn-sm btn-default  glyphicon glyphicon-arrow-up" ng-click="bajar(capa.prioridad)"></a>                        
+                            <a href="#" class="btn-sm btn-default  glyphicon glyphicon-arrow-down" ng-click="subir(capa.prioridad)"></a>                        
+                            <a href="#" class="btn-sm btn-default " ng-class="capa.visible? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close'"
+                               ng-click="controlarVisualizacion(capa.prioridad)"></a>                        
                         </td>
                     </tr>
                 </table>                              

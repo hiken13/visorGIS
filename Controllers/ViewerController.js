@@ -31,6 +31,12 @@ angular.module('visorGIS', [])
                     prioridad: 2,
                     visible: false,
                     url: ""
+                },
+                {
+                    nombre: "Escuelas",
+                    prioridad: 3,
+                    visible: false,
+                    url: ""
                 }
             ];
 
@@ -58,6 +64,10 @@ angular.module('visorGIS', [])
                             else if ($scope.capas[i].nombre === "Rios") {
                                 $scope.capas[i].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                             }
+                            //mostrar la capa de Escuelas si es el caso
+                            else if ($scope.capas[i].nombre === "Escuelas") {
+                                $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            }
                         }
                     }
                 }
@@ -81,6 +91,11 @@ angular.module('visorGIS', [])
                             //mostrar la capa de Rios si es el caso
                             else if ($scope.capas[i].nombre === "Rios") {
                                 $scope.capas[i].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            }
+                            
+                            //mostrar la capa de Escuelas si es el caso
+                            else if ($scope.capas[i].nombre === "Escuelas") {
+                                $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                             }
                         }
                     }
@@ -115,6 +130,10 @@ angular.module('visorGIS', [])
                         else if ($scope.capas[id].nombre === "Rios") {
                             $scope.capas[id].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                         }
+                        //mostrar la capa de Escuelas si es el caso
+                        else if ($scope.capas[id].nombre === "Escuelas") {
+                            $scope.capas[id].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                        }
                     }
                 }
 
@@ -136,7 +155,7 @@ angular.module('visorGIS', [])
             };
 
             $scope.bajar = function (id) {
-                if (id < 2) {
+                if (id < $scope.capas.length - 1) {
                     $scope.capas[id].prioridad = id + 1;
                     $scope.capas[id + 1].prioridad = id;
 
