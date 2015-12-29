@@ -59,14 +59,14 @@ and open the template in the editor.
             <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:200px;">
                 <br>
                 <table>
-                    <tr ng-repeat="capa in capas">
+                    <tr ng-repeat="capa in capas |orderBy:'prioridad':true">
                         <td>
                             <a href="#" class="btn btn-default btn-sm" ng-click="controlarVisualizacion(capa.prioridad)">{{capa.nombre}}</a>
                         </td>
                         <td>
 
-                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-up" ng-click=""></a>                        
-                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-down" ng-click=""></a>                        
+                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-up" ng-click="bajar(capa.prioridad)"></a>                        
+                            <a href="#" class=" btn-default  glyphicon glyphicon-arrow-down" ng-click="subir(capa.prioridad)"></a>                        
                         </td>
                     </tr>
                 </table>                              
@@ -74,12 +74,12 @@ and open the template in the editor.
         </div>          
 
         <div  style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+
             <div ng-repeat="capa in capas">
                 <table style="position: absolute" ng-show="capa.visible">
                     <tr>
                         <td>
                             <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                            {{capa.nombre}}
                         </td>
                     </tr>                   
                 </table>            
@@ -89,7 +89,6 @@ and open the template in the editor.
                     <tr>
                         <td>
                             <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                            {{capa.nombre}}
                         </td>
                     </tr>                   
                 </table>
@@ -100,7 +99,6 @@ and open the template in the editor.
                     <tr>
                         <td>
                             <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                            {{capa.nombre}}
                         </td>
                     </tr>                   
                 </table>
