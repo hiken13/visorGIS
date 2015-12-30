@@ -37,6 +37,12 @@ angular.module('visorGIS', [])
                     prioridad: 3,
                     visible: false,
                     url: ""
+                },
+                {
+                    nombre: "Distritos",
+                    prioridad: 4,
+                    visible: false,
+                    url: ""
                 }
             ];
 
@@ -68,6 +74,10 @@ angular.module('visorGIS', [])
                             else if ($scope.capas[i].nombre === "Escuelas") {
                                 $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                             }
+                            //mostrar la capa de Distritos si es el caso
+                            else if ($scope.capas[i].nombre === "Distritos") {
+                                $scope.capas[i].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            }
                         }
                     }
                 }
@@ -96,6 +106,11 @@ angular.module('visorGIS', [])
                             //mostrar la capa de Escuelas si es el caso
                             else if ($scope.capas[i].nombre === "Escuelas") {
                                 $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            }
+                            
+                            //mostrar la capa de Distritos si es el caso
+                            else if ($scope.capas[i].nombre === "Distritos") {
+                                $scope.capas[i].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                             }
                         }
                     }
@@ -134,6 +149,10 @@ angular.module('visorGIS', [])
                         else if ($scope.capas[id].nombre === "Escuelas") {
                             $scope.capas[id].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
                         }
+                        //mostrar la capa de Distritos si es el caso
+                            else if ($scope.capas[id].nombre === "Distritos") {
+                                $scope.capas[id].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            }
                     }
                 }
 
