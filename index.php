@@ -112,7 +112,9 @@ and open the template in the editor.
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
             <div class="btn-group">
-                <a class="btn btn-default btn-sm" ng-click="zoomIn()">reset</a>                       
+                <a class="btn btn-default btn-sm" ng-click="zoomIn(1)">+</a>
+                <a class="btn btn-default btn-sm" ng-click="zoomIn(0)">-</a>
+                <a class="btn btn-default btn-sm" ng-click="zoomIn(2)">Reset</a>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cambiarTam()">Cambiar tamaño</a>  
             </div>
 

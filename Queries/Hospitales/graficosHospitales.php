@@ -39,7 +39,7 @@ class graficos {
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
 
 
-        $query = "select 	(st_X(st_geometryN(geom,1))-296480.57186013)/560.63136290052 X,
+        $query = "select (st_X(st_geometryN(geom,1))-296480.57186013)/560.63136290052 X,
           640- (st_y(st_geometryN(geom,1))-889378.554139937)/560.63136290052  Y
           from hospitales";
 
@@ -47,13 +47,13 @@ class graficos {
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
 
         while ($row = pg_fetch_row($result)) {
-            if ($zi != "n") {
-                $row[0] = ajustar($row[0], $x);
-                $row[1] = ajustar($row[1], $y);
+            
+                $row[0] = ajustar($row[0], $zi);
+                $row[1] = ajustar($row[1], $zi);
                 imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
-            } else {
+            
                 imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
-            }
+            
         }
 
 
@@ -70,6 +70,6 @@ class graficos {
  */
 function ajustar($punto, $porcentaje) {
     //$seg = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * porcentaje); //expandir el punto
+    $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
     return $punto;
 }

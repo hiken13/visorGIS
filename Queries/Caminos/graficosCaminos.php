@@ -49,25 +49,16 @@ class graficos {
 
         while ($row = pg_fetch_row($result)) {
 
-            if ($zi == 1) {
+             {
                 $arrayX = explode(", ", $row[1]);
                 $arrayY = explode(", ", $row[2]);
 
-                for ($i = 0; $i < count($arrayX) - 1; ++$i) {
-                    $x1 = ajustar($arrayX[$i], $x);
-                    $x2 = ajustar($arrayX[$i + 1], $x);
-                    $y1 = ajustar($arrayY[$i], $x);
-                    $y2 = ajustar($arrayY[$i + 1], $x);
-
+                for ($i = 0; $i < count($arrayX) - 1; ++$i) {                
+                    $x1 = ajustar($arrayX[$i], $zi);
+                    $x2 = ajustar($arrayY[$i+1], $zi);
+                    $y1 = ajustar($arrayY[$i], $zi);
+                    $y2 = ajustar($arrayY[$i+1], $zi);
                     imageline($img, $x1, $y1, $x2, $y2, $white);
-                }
-            } else {
-                $arrayX = explode(", ", $row[1]);
-                $arrayY = explode(", ", $row[2]);
-
-                for ($i = 0; $i < count($arrayX) - 1; ++$i) {
-
-                    imageline($img, $arrayX[$i], $arrayY[$i], $arrayX[$i + 1], $arrayY[$i + 1], $white);
                 }
             }
         }
@@ -79,14 +70,14 @@ class graficos {
 }
 
 /**
- * Funcion para ajustar los puntos devuelto por la consulta al tamaño de la imagen
- * @param int $x : punto para ajustar
- * @param inty $y : dimensiones a las que se debe ajustar el punto
+ * Funcion para ajustar los puntos devueltos por la consulta extendiendolos un 10% con
+ * respecto a su distancia actual
+ * @param int punto: punto para ajustar
+ * @param float porcentaje: porcentaje de zoom
  * @return punto : punto ajustado
  */
-function ajustar($punto, $dimension) {
-    if ($punto > ($dimension / 2) || $punto < ($dimension / 2)) {
-        $punto = ($punto) + ($punto * 0.1);
-    }
+function ajustar($punto, $porcentaje) {
+    //$seg = $dimension / 10; //10% de la dimension
+    $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
     return $punto;
 }
