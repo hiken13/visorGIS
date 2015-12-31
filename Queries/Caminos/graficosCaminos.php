@@ -54,10 +54,10 @@ class graficos {
             $arrayY = explode(", ", $row[2]);
 
             for ($i = 0; $i < count($arrayX) - 1; ++$i) {
-                $x1 = ajustar($arrayX[$i], $zi);
-                $x2 = ajustar($arrayX[$i + 1], $zi);
-                $y1 = ajustar($arrayY[$i], $zi);
-                $y2 = ajustar($arrayY[$i + 1], $zi);
+                $x1 = ajustar($arrayX[$i], $zi, $x);
+                $x2 = ajustar($arrayX[$i + 1], $zi, $x);
+                $y1 = ajustar($arrayY[$i], $zi, $y);
+                $y2 = ajustar($arrayY[$i + 1], $zi, $y);
                 imageline($img, $x1, $y1, $x2, $y2, $white);
             }
         }
@@ -73,10 +73,12 @@ class graficos {
  * respecto a su distancia actual
  * @param int punto: punto para ajustar
  * @param float porcentaje: porcentaje de zoom
+ * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje) {
-    //$seg = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
+function ajustar($punto, $porcentaje, $dimension) {
+    $borde = $dimension / 10; //10% de la dimension
+    $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
+    $punto = ($punto - ($borde * ($porcentaje * 10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
     return $punto;
 }

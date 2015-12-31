@@ -40,7 +40,7 @@ class graficos {
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
 
         $query = "select 	(st_X(st_geometryN(geom,1))-292369.968163136)/564.017324260508 X,
-	 640- (st_y(st_geometryN(geom,1))-889242.988534586) /564.017324260508  Y
+	 1024- (st_y(st_geometryN(geom,1))-889242.988534586) /564.017324260508  Y
         from escuelas";
 
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
@@ -61,11 +61,13 @@ class graficos {
  * respecto a su distancia actual
  * @param int punto: punto para ajustar
  * @param float porcentaje: porcentaje de zoom
+ * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
 function ajustar($punto, $porcentaje,$dimension) {
-    $seg = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
-    $punto = ($punto-($seg*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto
+    $borde = $dimension / 10; //10% de la dimension
+    $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
+    $punto = ($punto-($borde*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
     return $punto;
 }
+

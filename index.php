@@ -45,18 +45,32 @@ and open the template in the editor.
             </div>
         </div>          
 
-        <div  style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+        <div  style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 310px; top: 20px ">
 
             <div ng-repeat="capa in capas">
                 <table style="position: absolute" ng-show="capa.visible">
                     <tr>
                         <td>
-
+                          
                             <img style="opacity: {{capa.opacidad}}"   src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                        </td>
+                            
+                            </td>
                     </tr>                   
                 </table>            
-            </div>          
+            </div>  
+            
+            <!--div >
+                <table style="position: absolute">
+                    <tr>
+                        <td>
+                            <center>
+                                <img src="Chrysanthemum.jpg">
+                            </center>
+                            </td>
+                    </tr>                   
+                </table>            
+            </div-->  
+            
 
 
         </div>

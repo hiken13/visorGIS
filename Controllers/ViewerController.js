@@ -63,7 +63,7 @@ angular.module('visorGIS', [])
 
                 if ($scope.sizeX === 640) {
                     $scope.sizeX = 1024;
-                    $scope.sizeY = 840;
+                    $scope.sizeY = 940;
 
                     for (i = 0; i < $scope.capas.length; i++) {
                         //si la capa actual tiene como estado visible, entonces actualizar
@@ -165,11 +165,12 @@ angular.module('visorGIS', [])
                 }
             };
             $scope.aumentarTransparencia = function (id, ind) {
-                if (ind === 1) {
+                if (ind === 1 && $scope.capas[id].opacidad > 0) {
 
                     $scope.capas[id].opacidad -= 0.1;
                 }
-                else{
+                else if(ind !== 1 && $scope.capas[id].opacidad<0.9){
+                    
                     $scope.capas[id].opacidad += 0.1;
                 }
             };
