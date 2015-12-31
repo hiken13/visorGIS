@@ -24,7 +24,7 @@ and open the template in the editor.
                 <a href="#" class="btn btn-default btn-sm disabled">Herramientas</a>  
             </div>  
 
-            <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:225px;">
+            <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:300px;">
                 <br>
                 <table>
                     <tr ng-repeat="capa in capas|orderBy:'prioridad':true">
@@ -35,6 +35,8 @@ and open the template in the editor.
 
                             <a href="#" class="btn-sm btn-default  glyphicon glyphicon-arrow-up" ng-click="bajar(capa.prioridad)"></a>                        
                             <a href="#" class="btn-sm btn-default  glyphicon glyphicon-arrow-down" ng-click="subir(capa.prioridad)"></a>                        
+                            <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia(capa.prioridad,1)">tr+</a>
+                            <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia(capa.prioridad,0)">tr-</a>
                             <a href="#" class="btn-sm btn-default " ng-class="capa.visible? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close'"
                                ng-click="controlarVisualizacion(capa.prioridad)"></a>                        
                         </td>
@@ -50,36 +52,16 @@ and open the template in the editor.
                     <tr>
                         <td>
 
-                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
+                            <img style="opacity: {{capa.opacidad}}"   src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
                         </td>
                     </tr>                   
                 </table>            
-            </div>
-            <div ng-repeat="capa in capas">
-                <table style="position: absolute" ng-show="capa.visible">
-                    <tr>
-                        <td>
-                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                        </td>
-                    </tr>                   
-                </table>
-            </div>
-
-            <div ng-repeat="capa in capas" ng-show="capa.visible">
-                <table style="position: absolute">
-                    <tr>
-                        <td>
-                            <img   src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                        </td>
-                    </tr>                   
-                </table>
-            </div>
+            </div>          
 
 
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
-            <div class="btn-group">
-                <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia()">op+</a>
+            <div class="btn-group">                
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(1)">+</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(0)">-</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(2)">Reset</a>
