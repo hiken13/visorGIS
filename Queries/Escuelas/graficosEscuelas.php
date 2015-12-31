@@ -21,6 +21,7 @@ class graficos {
      * @return image : i magen resultante
      */
     function crearImagen($x, $y, $zi) {
+        $factor= 366468.447793805/$x;
         $img = imagecreatetruecolor($x, $y);
 
         $trans = imagecolorallocatealpha($img, 255, 255, 255, 127);
@@ -39,8 +40,8 @@ class graficos {
         $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
 
-        $query = "select 	(st_X(st_geometryN(geom,1))-292369.968163136)/564.017324260508 X,
-	 1024- (st_y(st_geometryN(geom,1))-889242.988534586) /564.017324260508  Y
+        $query = "select 	(st_X(st_geometryN(geom,1))-292369.968163136)/$factor X,
+	 $x- (st_y(st_geometryN(geom,1))-889242.988534586) /$factor  Y
         from escuelas";
 
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");

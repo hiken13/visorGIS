@@ -21,6 +21,7 @@ class graficos {
      * @return image : i magen resultante
      */
     function crearImagen($x, $y, $zi) {
+        $factor= 366468.447793805/$x;
         $img = imagecreatetruecolor($x, $y);
 
         $trans = imagecolorallocatealpha($img, 255, 255, 255, 127);
@@ -39,8 +40,8 @@ class graficos {
         $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
 
         $query = "select c.gid gid,
-          string_agg(CAST(((ST_X(ST_GeometryN(c.geom,1))-296480.57186013)/560.63136290052) as varchar(100)),', ') x,
-          string_agg(CAST((640 - (ST_Y(ST_GeometryN(c.geom,1))-889378.554139937)/560.63136290052) as varchar(100)),', ') y
+          string_agg(CAST(((ST_X(ST_GeometryN(c.geom,1))-296480.57186013)/$factor) as varchar(100)),', ') x,
+          string_agg(CAST(($x - (ST_Y(ST_GeometryN(c.geom,1))-889378.554139937)/$factor) as varchar(100)),', ') y
           from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom, gid
           FROM caminos) c
           group by gid";
