@@ -10,7 +10,7 @@
 /**
  * Description of newPHPClass
  *
- * @author leoviquez
+ * @author 
  */
 class graficos {
 
@@ -48,8 +48,8 @@ class graficos {
 
         while ($row = pg_fetch_row($result)) {
             
-                $row[0] = ajustar($row[0], $zi);
-                $row[1] = ajustar($row[1], $zi);
+                $row[0] = ajustar($row[0], $zi,$x);
+                $row[1] = ajustar($row[1], $zi,$y);
                 imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);                               
         }
 
@@ -60,13 +60,15 @@ class graficos {
 }
 
 /**
- * Funcion para ajustar los puntos devuelto por la consulta al tamaño de la imagen
- * @param int $x : punto para ajustar
- * @param inty $y : dimensiones a las que se debe ajustar el punto
+ * Funcion para ajustar los puntos devueltos por la consulta extendiendolos un 10% con
+ * respecto a su distancia actual
+ * @param int punto: punto para ajustar
+ * @param float porcentaje: porcentaje de zoom
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje) {
-    //$seg = $dimension / 10; //10% de la dimension
+function ajustar($punto, $porcentaje,$dimension) {
+    $seg = $dimension / 10; //10% de la dimension
     $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
+    $punto = ($punto-($seg*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto
     return $punto;
 }

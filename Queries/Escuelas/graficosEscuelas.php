@@ -10,7 +10,7 @@
 /**
  * Description of newPHPClass
  *
- * @author leoviquez
+ * @author 
  */
 class graficos {
 
@@ -47,8 +47,8 @@ class graficos {
 
         while ($row = pg_fetch_row($result)) {
 
-            $row[0] = ajustar($row[0], $zi);
-            $row[1] = ajustar($row[1], $zi);
+            $row[0] = ajustar($row[0], $zi,$x);
+            $row[1] = ajustar($row[1], $zi,$y);
             imagefilledellipse($img, $row[0], $row[1], 6, 6, $green);
         }
 
@@ -63,8 +63,9 @@ class graficos {
  * @param float porcentaje: porcentaje de zoom
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje) {
-    //$seg = $dimension / 10; //10% de la dimension
+function ajustar($punto, $porcentaje,$dimension) {
+    $seg = $dimension / 10; //10% de la dimension
     $punto = ($punto) + ($punto * $porcentaje); //expandir el punto
+    $punto = ($punto-($seg*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto
     return $punto;
 }
