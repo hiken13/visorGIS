@@ -7,13 +7,9 @@ and open the template in the editor.
 
 <html ng-app="visorGIS" ng-controller="ControllerViewerGIS">
     <head >
-        <link rel="stylesheet" type="text/css" href="styles/estilos.css">
-        <link rel="stylesheet" href="imagepanner.css" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="jquery.kinetic.min.js" type="text/javascript"></script>
-        <script src="jquery.mousewheel.min.js"></script>
-        <script src="imagepanner.js"></script>
-
+       
+    
+        
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
         <script src="./Controllers/ViewerController.js"></script>
         <script type="text/javascript" src="./TableMaker.js"></script>
@@ -21,35 +17,6 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>GIS Vission</title>
 
-        <style>
-
-            /* demo styles. Remove if desired */
-            #pcontainer1{
-                width: 600px;
-                height: 400px;
-            }
-
-            @media screen and (max-width: 780px){ /* responsive setting */
-                #pcontainer1{
-                    width: 100%;
-                    height: 400px;
-                }
-            }
-
-        </style>
-
-        <script>
-
-            var panimage1; // register arbitrary variable
-            jQuery(function ($) {
-                panimage1 = new imagepanner({
-                    wrapper: $('#pcontainer1'), // jQuery selector to image container
-                    imgpos: [100, 300], // initial image position- x, y
-                    maxlevel: 4 // maximum zoom level
-                });
-            });
-
-        </script>   
     </head>
     <body class="bg-info">
         <div class="pull-left">
@@ -60,7 +27,7 @@ and open the template in the editor.
             <div class="container" id="PanelHerramientas" style="background-color: gray; height:400px; width:225px;">
                 <br>
                 <table>
-                    <tr ng-repeat="capa in capas |orderBy:'prioridad':true">
+                    <tr ng-repeat="capa in capas|orderBy:'prioridad':true">
                         <td>
                             <h1 class="label label-default">{{capa.nombre}}</h1>
                         </td>
@@ -76,13 +43,13 @@ and open the template in the editor.
             </div>
         </div>          
 
-        <div  style="background-color: gray; height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
+        <div  style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 350px; top: 20px ">
 
             <div ng-repeat="capa in capas">
                 <table style="position: absolute" ng-show="capa.visible">
                     <tr>
                         <td>
-                            
+
                             <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
                         </td>
                     </tr>                   
@@ -102,7 +69,7 @@ and open the template in the editor.
                 <table style="position: absolute">
                     <tr>
                         <td>
-                            <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
+                            <img   src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
                         </td>
                     </tr>                   
                 </table>
@@ -112,6 +79,7 @@ and open the template in the editor.
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
             <div class="btn-group">
+                <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia()">op+</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(1)">+</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(0)">-</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(2)">Reset</a>

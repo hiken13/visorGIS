@@ -10,6 +10,7 @@ angular.module('visorGIS', [])
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y            
             $scope.zi = 0.0;
+            $scope.opacidad = 0.1;
 
 
 
@@ -131,8 +132,9 @@ angular.module('visorGIS', [])
             };
 
 /**
- * 
- * @param {type} ind
+ * Funcion para raalizar zoom, modifica dependiendo de su parametro el varlor
+ * del zoom del visor y 
+ * @param {type} ind indicador para saber si la operacion es de acercar,, alejar o resetear al zoom default
  * @returns {undefined}
  */
             $scope.zoomIn = function (ind) {
@@ -154,5 +156,8 @@ angular.module('visorGIS', [])
                         }
                     }
                 }
+            };
+            $scope.aumentarTransparencia = function (){
+               $scope.opacidad += 0.1;
             };
         });

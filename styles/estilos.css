@@ -27,3 +27,9 @@ and open the template in the editor.
     width: 24px;
     height: 24px;
 }
+
+div {
+    background-color: wheat;
+    opacity: 0.9;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
