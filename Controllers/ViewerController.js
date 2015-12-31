@@ -9,7 +9,8 @@ angular.module('visorGIS', [])
         {
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y            
-
+            $scope.zi=0;
+            
 
 
             //arreglo que contiene capas, representadas por objetos
@@ -58,12 +59,12 @@ angular.module('visorGIS', [])
                         if ($scope.capas[i].visible === true) {
                             console.log("Hola");
                             if ($scope.capas[i].nombre === "Hospitales") {
-                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
                             }
 
                             //mostrar la capa de caminos si es el caso
                             else if ($scope.capas[i].nombre === "Caminos") {
-                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
 
                             }
                             //mostrar la capa de Rios si es el caso
@@ -90,12 +91,13 @@ angular.module('visorGIS', [])
                         if ($scope.capas[i].visible === true) {
                             console.log("Hola");
                             if ($scope.capas[i].nombre === "Hospitales") {
-                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                                console.log($scope.capas[i].url);
                             }
 
                             //mostrar la capa de caminos si es el caso
                             else if ($scope.capas[i].nombre === "Caminos") {
-                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
 
                             }
                             //mostrar la capa de Rios si es el caso
@@ -134,12 +136,13 @@ angular.module('visorGIS', [])
 
                         //mostrar la capa de hospitales si es el caso
                         if ($scope.capas[id].nombre === "Hospitales") {
-                            $scope.capas[id].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
+                            $scope.capas[id].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                        
+                        console.log($scope.capas[id].url);}
 
                         //mostrar la capa de caminos si es el caso
                         else if ($scope.capas[id].nombre === "Caminos") {
-                            $scope.capas[id].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                            $scope.capas[id].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
                         }
                         //mostrar la capa de Rios si es el caso
                         else if ($scope.capas[id].nombre === "Rios") {
@@ -183,6 +186,17 @@ angular.module('visorGIS', [])
                     $scope.capas[id] = temp;
                 }
             };
-
-
+            
+            $scope.zoomIn= function(){
+                console.log("hola")
+                if($scope.zi===1){
+                    $scope.zi=0;
+                    $scope.capas[2].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                       $scope.capas[1].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                }else{
+                    $scope.zi=1;
+                       $scope.capas[1].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                       $scope.capas[2].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY+"&zi="+$scope.zi;
+                }
+            };
         });

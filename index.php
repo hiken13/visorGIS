@@ -82,6 +82,7 @@ and open the template in the editor.
                 <table style="position: absolute" ng-show="capa.visible">
                     <tr>
                         <td>
+                            
                             <img  src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
                         </td>
                     </tr>                   
@@ -111,7 +112,7 @@ and open the template in the editor.
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
             <div class="btn-group">
-                <a class="btn btn-default btn-sm" onClick="panimage1.zoom(1)">reset</a>                       
+                <a class="btn btn-default btn-sm" ng-click="zoomIn()">reset</a>                       
                 <a href="#" class="btn btn-default btn-sm" ng-click="cambiarTam()">Cambiar tamaño</a>  
             </div>
 
