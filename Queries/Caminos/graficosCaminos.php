@@ -55,7 +55,7 @@ class graficos {
 
                 for ($i = 0; $i < count($arrayX) - 1; ++$i) {                
                     $x1 = ajustar($arrayX[$i], $zi);
-                    $x2 = ajustar($arrayY[$i+1], $zi);
+                    $x2 = ajustar($arrayX[$i+1], $zi);
                     $y1 = ajustar($arrayY[$i], $zi);
                     $y2 = ajustar($arrayY[$i+1], $zi);
                     imageline($img, $x1, $y1, $x2, $y2, $white);

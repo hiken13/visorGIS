@@ -19,31 +19,36 @@ angular.module('visorGIS', [])
                     nombre: "Rios", //nombre de la capa
                     prioridad: 0, // prioridad de la capa
                     visible: false, // visible u opculto
-                    url: "" // dirección para crear la imagen
+                    url: "", // dirección para crear la imagen
+                    actualizar: false
                 },
                 {
                     nombre: "Hospitales",
                     prioridad: 1,
                     visible: false,
-                    url: ""
+                    url: "",
+                    actualizar: false
                 },
                 {
                     nombre: "Caminos",
                     prioridad: 2,
                     visible: false,
-                    url: ""
+                    url: "",
+                    actualizar: false
                 },
                 {
                     nombre: "Escuelas",
                     prioridad: 3,
                     visible: false,
-                    url: ""
+                    url: "",
+                    actualizar: false
                 },
                 {
                     nombre: "Distritos",
                     prioridad: 4,
                     visible: false,
-                    url: ""
+                    url: "",
+                    actualizar: false
                 }
             ];
 
@@ -57,28 +62,7 @@ angular.module('visorGIS', [])
                         //si la capa actual tiene como estado visible, entonces actualizar
                         //el tamaño de la imagen de acuerdo a las dimesiones
                         if ($scope.capas[i].visible === true) {
-                            console.log("Hola");
-                            if ($scope.capas[i].nombre === "Hospitales") {
-                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-                            }
-
-                            //mostrar la capa de caminos si es el caso
-                            else if ($scope.capas[i].nombre === "Caminos") {
-                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-
-                            }
-                            //mostrar la capa de Rios si es el caso
-                            else if ($scope.capas[i].nombre === "Rios") {
-                                $scope.capas[i].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
-                            //mostrar la capa de Escuelas si es el caso
-                            else if ($scope.capas[i].nombre === "Escuelas") {
-                                $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
-                            //mostrar la capa de Distritos si es el caso
-                            else if ($scope.capas[i].nombre === "Distritos") {
-                                $scope.capas[i].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
+                            $scope.capas[i].url = "Queries/"+$scope.capas[i].nombre+"/imagen"+$scope.capas[i].nombre+".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
                         }
                     }
                 }
@@ -89,31 +73,7 @@ angular.module('visorGIS', [])
                         //si la capa actual tiene como estado visible, entonces actualizar
                         //el tamaño de la imagen de acuerdo a las dimesiones
                         if ($scope.capas[i].visible === true) {
-                            console.log("Hola");
-                            if ($scope.capas[i].nombre === "Hospitales") {
-                                $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-                                console.log($scope.capas[i].url);
-                            }
-
-                            //mostrar la capa de caminos si es el caso
-                            else if ($scope.capas[i].nombre === "Caminos") {
-                                $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-
-                            }
-                            //mostrar la capa de Rios si es el caso
-                            else if ($scope.capas[i].nombre === "Rios") {
-                                $scope.capas[i].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
-
-                            //mostrar la capa de Escuelas si es el caso
-                            else if ($scope.capas[i].nombre === "Escuelas") {
-                                $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
-
-                            //mostrar la capa de Distritos si es el caso
-                            else if ($scope.capas[i].nombre === "Distritos") {
-                                $scope.capas[i].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                            }
+                            $scope.capas[i].url = "Queries/"+$scope.capas[i].nombre+"/imagen"+$scope.capas[i].nombre+".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
                         }
                     }
                 }
@@ -133,30 +93,12 @@ angular.module('visorGIS', [])
 
                     //si es la primera vez que se muestran
                     if ($scope.capas[id].url === "") {
-
-                        //mostrar la capa de hospitales si es el caso
-                        if ($scope.capas[id].nombre === "Hospitales") {
-                            $scope.capas[id].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-
-                            console.log($scope.capas[id].url);
-                        }
-
-                        //mostrar la capa de caminos si es el caso
-                        else if ($scope.capas[id].nombre === "Caminos") {
-                            $scope.capas[id].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-                        }
-                        //mostrar la capa de Rios si es el caso
-                        else if ($scope.capas[id].nombre === "Rios") {
-                            $scope.capas[id].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
-                        //mostrar la capa de Escuelas si es el caso
-                        else if ($scope.capas[id].nombre === "Escuelas") {
-                            $scope.capas[id].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
-                        //mostrar la capa de Distritos si es el caso
-                        else if ($scope.capas[id].nombre === "Distritos") {
-                            $scope.capas[id].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
+                        //mostrar la capa requerida
+                        $scope.capas[id].url = "Queries/"+$scope.capas[id].nombre+"/imagen"+$scope.capas[id].nombre+".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
+                    }
+                    else if($scope.capas[id].actualizar === true){
+                        $scope.capas[id].actualizar = false;
+                        $scope.capas[id].url = "Queries/"+$scope.capas[id].nombre+"/imagen"+$scope.capas[id].nombre+".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;                        
                     }
                 }
 
@@ -188,40 +130,27 @@ angular.module('visorGIS', [])
                 }
             };
 
+/**
+ * 
+ * @param {type} ind
+ * @returns {undefined}
+ */
             $scope.zoomIn = function (ind) {
                 if ($scope.zi < 0.9 && ind === 1) {
-                        $scope.zi = $scope.zi + 0.1;                        
-                    } else if ($scope.zi < 0.9 && ind === 0 && $scope.zi > 0) {
-                        $scope.zi = $scope.zi - 0.1;                        
+                    $scope.zi = $scope.zi + 0.1;
+                } else if ($scope.zi < 0.9 && ind === 0 && $scope.zi > 0) {
+                    $scope.zi = $scope.zi - 0.1;
+                }
+                else {
+                    $scope.zi = 0;
+                }
+                for (i = 0; i < $scope.capas.length; i++) {
+                    if ($scope.capas[i].visible === true) {
+                        $scope.capas[i].url = "Queries/"+$scope.capas[i].nombre+"/imagen"+$scope.capas[i].nombre+".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
                     }
                     else {
-                        $scope.zi = 0;                        
-                    }
-                for (i = 0; i < $scope.capas.length; i++) {                    
-                    if ($scope.capas[i].visible === true) {
-                        if ($scope.capas[i].nombre === "Hospitales") {
-                            $scope.capas[i].url = "Queries/Hospitales/imagenHospitales.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-                            console.log($scope.capas[i].url);
-                        }
-
-                        //mostrar la capa de caminos si es el caso
-                        else if ($scope.capas[i].nombre === "Caminos") {
-                            $scope.capas[i].url = "Queries/Caminos/imagenCaminos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi;
-
-                        }
-                        //mostrar la capa de Rios si es el caso
-                        else if ($scope.capas[i].nombre === "Rios") {
-                            $scope.capas[i].url = "Queries/Rios/imagenRios.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
-
-                        //mostrar la capa de Escuelas si es el caso
-                        else if ($scope.capas[i].nombre === "Escuelas") {
-                            $scope.capas[i].url = "Queries/Escuelas/imagenEscuelas.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
-                        }
-
-                        //mostrar la capa de Distritos si es el caso
-                        else if ($scope.capas[i].nombre === "Distritos") {
-                            $scope.capas[i].url = "Queries/Distritos/imagenDistritos.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY;
+                        if ($scope.capas[i].url !== "") {
+                            $scope.capas[i].actualizar = true;
                         }
                     }
                 }

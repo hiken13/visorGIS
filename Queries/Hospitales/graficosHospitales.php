@@ -50,10 +50,7 @@ class graficos {
             
                 $row[0] = ajustar($row[0], $zi);
                 $row[1] = ajustar($row[1], $zi);
-                imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
-            
-                imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
-            
+                imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);                               
         }
 
 
