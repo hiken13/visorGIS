@@ -20,7 +20,7 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi) {
+    function crearImagen($x, $y, $zi,$mx,$my) {
         $factor= 366468.447793805/$x;
         $img = imagecreatetruecolor($x, $y);
 
@@ -48,8 +48,11 @@ class graficos {
 
         while ($row = pg_fetch_row($result)) {
 
-            $row[0] = ajustar($row[0], $zi,$x);
-            $row[1] = ajustar($row[1], $zi,$y);
+            $row[0] = ajustar($row[0], $zi, $x);
+            $row[1] = ajustar($row[1], $zi, $y);
+
+            $row[0]+= ($x / 10) * $mx;//mover en x
+            $row[1]+= ($y / 10) * $my;//mover en y
             imagefilledellipse($img, $row[0], $row[1], 6, 6, $green);
         }
 
@@ -68,7 +71,7 @@ class graficos {
 function ajustar($punto, $porcentaje,$dimension) {
     $borde = $dimension / 10; //10% de la dimension
     $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
-    $punto = ($punto-($borde*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
+    $punto = ($punto-($borde*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajustar a las dimensiones
     return $punto;
 }
 

@@ -20,8 +20,8 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi) {
-        $factor= 366468.447793805/$x; //factor de division respecto a las divisiones
+    function crearImagen($x, $y, $zi, $mx, $my) {
+        $factor = 366468.447793805 / $x; //factor de division respecto a las divisiones
         $img = imagecreatetruecolor($x, $y);
 
         $trans = imagecolorallocatealpha($img, 255, 255, 255, 127);
@@ -48,10 +48,12 @@ class graficos {
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
 
         while ($row = pg_fetch_row($result)) {
-            
-                $row[0] = ajustar($row[0], $zi,$x);
-                $row[1] = ajustar($row[1], $zi,$y);
-                imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);                               
+            $row[0] = ajustar($row[0], $zi, $x);
+            $row[1] = ajustar($row[1], $zi, $y);
+
+            $row[0]+= ($x / 10) * $mx;
+            $row[1]+= ($y / 10) * $my;
+            imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
         }
 
 
@@ -68,10 +70,9 @@ class graficos {
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje,$dimension) {
+function ajustar($punto, $porcentaje, $dimension) {
     $borde = $dimension / 10; //10% de la dimension
     $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
-    $punto = ($punto-($borde*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
+    $punto = ($punto - ($borde * ($porcentaje * 10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
     return $punto;
 }
-

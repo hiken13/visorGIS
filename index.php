@@ -58,20 +58,6 @@ and open the template in the editor.
                     </tr>                   
                 </table>            
             </div>  
-            
-            <!--div >
-                <table style="position: absolute">
-                    <tr>
-                        <td>
-                            <center>
-                                <img src="Chrysanthemum.jpg">
-                            </center>
-                            </td>
-                    </tr>                   
-                </table>            
-            </div-->  
-            
-
 
         </div>
         <div id="panelBotones" style='position: absolute; top: 70%'>
@@ -80,6 +66,16 @@ and open the template in the editor.
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(0)">-</a>
                 <a class="btn btn-default btn-sm" ng-click="zoomIn(2)">Reset</a>
                 <a href="#" class="btn btn-default btn-sm" ng-click="cambiarTam()">Cambiar tamaño</a>  
+            </div>
+
+        </div>
+        
+        <div id="panelBotones" style='position: absolute; top: 75%'>
+            <div class="btn-group">                
+                <a class="btn btn-default btn-sm" ng-click="mov(0)">Suba</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(1)">Baje</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(4)">Derecha</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(3)">Izquierda</a>
             </div>
 
         </div>
