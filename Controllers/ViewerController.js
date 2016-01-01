@@ -25,21 +25,21 @@ angular.module('visorGIS', [])
                     opacidad: 1
                 },
                 {
-                    nombre: "Hospitales",
+                    nombre: "Caminos",
                     prioridad: 1,
                     visible: false,
                     url: "",
                     actualizar: false,
                     opacidad: 1
+
                 },
                 {
-                    nombre: "Caminos",
+                    nombre: "Distritos",
                     prioridad: 2,
                     visible: false,
                     url: "",
                     actualizar: false,
                     opacidad: 1
-
                 },
                 {
                     nombre: "Escuelas",
@@ -50,13 +50,14 @@ angular.module('visorGIS', [])
                     opacidad: 1
                 },
                 {
-                    nombre: "Distritos",
+                    nombre: "Hospitales",
                     prioridad: 4,
                     visible: false,
                     url: "",
                     actualizar: false,
                     opacidad: 1
                 }
+                
             ];
 
             $scope.cambiarTam = function () {
