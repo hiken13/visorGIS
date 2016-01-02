@@ -9,7 +9,7 @@ angular.module('visorGIS', [])
         {
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y            
-            $scope.zi = 0.0;
+            $scope.zi = 0;
             $scope.opacidad = 1;
             $scope.mx=0;
             $scope.my=0;
@@ -150,7 +150,7 @@ angular.module('visorGIS', [])
              * arrrreglo
              * @returns {undefined}
              */
-            $scope.bajar = function (id) {
+            $scope.bajar = function (id) {                
                 if (id < $scope.capas.length - 1) {
                     $scope.capas[id].prioridad = id + 1;
                     $scope.capas[id + 1].prioridad = id;
@@ -167,11 +167,13 @@ angular.module('visorGIS', [])
              * @param {type} ind indicador para saber si la operacion es de acercar,, alejar o resetear al zoom default
              * @returns {undefined}
              */
+            
             $scope.zoomIn = function (ind) {
-                if ($scope.zi < 0.9 && ind === 1) {
-                    $scope.zi = $scope.zi + 0.1;
-                } else if ($scope.zi < 0.9 && ind === 0 && $scope.zi > 0) {
-                    $scope.zi = $scope.zi - 0.1;
+                
+                if (ind === 1) {
+                    $scope.zi = $scope.zi + 1;
+                } else if (ind === 0 ) {
+                    $scope.zi = $scope.zi - 1;
                 }
                 else {
                     $scope.zi = 0;
@@ -187,6 +189,7 @@ angular.module('visorGIS', [])
                     }
                 }
             };
+            
             /**
              * Funcion para aumentar la transparencia de una capa, dado su identificador
              * aumenta o disminuye en su estilo la opacidad de la misma

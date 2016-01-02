@@ -70,12 +70,12 @@ and open the template in the editor.
 
         </div>
         
-        <div id="panelBotones" style='position: absolute; top: 75%'>
+        <div id="" style='position: absolute; top: 75%'>
             <div class="btn-group">                
-                <a class="btn btn-default btn-sm" ng-click="mov(0)">Suba</a>
-                <a class="btn btn-default btn-sm" ng-click="mov(1)">Baje</a>
-                <a class="btn btn-default btn-sm" ng-click="mov(4)">Derecha</a>
-                <a class="btn btn-default btn-sm" ng-click="mov(3)">Izquierda</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(0)">Baje</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(1)">Suba</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(4)">Izquierda</a>
+                <a class="btn btn-default btn-sm" ng-click="mov(3)">Derecha</a>
             </div>
 
         </div>

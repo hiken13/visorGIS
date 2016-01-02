@@ -1,4 +1,5 @@
 <?php
+
 class graficos {
 
     /**
@@ -7,8 +8,8 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi) {
-        $factor= 366468.447793805/$x;
+    function crearImagen($x, $y, $zi,$mx,$my) {
+        $factor = 366468.447793805 / $x;
         $img = imagecreatetruecolor($x, $y);
         //$fondo = imagecolorallocate($img, 0, 0, 0);     
         $green = imagecolorallocatealpha($img, 52, 255, 27, 63);
@@ -38,14 +39,23 @@ class graficos {
         $pila = array();
         $i = 0;
         $row = pg_fetch_row($result);
-        
-        
+
+
         $nombre = $row[1];
         $nombreAnterior = $row[1];
-        
+
         while ($row = pg_fetch_row($result)) {
-            $row[2]=  ajustar($row[2], $zi, $x);//////////
-            $row[3]=  ajustar($row[3], $zi, $x);//////////
+            $row[2] = ajustar($row[2], $zi, $x); //////////
+            $row[3] = ajustar($row[3], $zi, $y); //////////
+
+            $xAux = $x;
+            $yAux = $y;
+            $xAux = mover($zi, $xAux);
+            $yAux = mover($zi, $yAux);
+            
+            $row[2]-= ($xAux / 10) * $mx;
+            $row[3]-= ($yAux / 10) * $my;
+
             if ($nombreAnterior != $nombre) {
                 imagefilledpolygon($img, $pila, count($pila) / 2, $green);
                 $nombreAnterior = $row[1];
@@ -55,15 +65,15 @@ class graficos {
             $nombre = $row[1];
             $pila[$i] = $row[2];
             $i++;
-            $pila[$i] = ($x-$row[3]);
+            $pila[$i] = ($x - $row[3]);
             $i++;
         }
         //$pila = array(40,  50,20,  240, 60,  60,240, 20,50,  40,10,  10);
         //echo count($pila)/2;
         //print_r($pila);
 
-        
-        
+
+
 
         /*
           $pila = array();
@@ -95,14 +105,31 @@ class graficos {
  * Funcion para ajustar los puntos devueltos por la consulta extendiendolos un 10% con
  * respecto a su distancia actual
  * @param int punto: punto para ajustar
- * @param float porcentaje: porcentaje de zoom
+ * @param float nivel: nivel de zoom
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje,$dimension) {
-    $borde = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
-    $punto = ($punto-($borde*($porcentaje*10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
+function ajustar($punto, $nivel, $dimension) {
+
+    $i = $nivel; //nivel actual de zoom
+    while ($i > 0) {
+        $dimension = $dimension - $dimension * 0.1;
+        $punto = $punto + $punto * 0.1;
+        $punto = $punto - $dimension * 0.1;
+        $i-=1;
+    }
     return $punto;
 }
-
+/**
+ *Funcion Auxiliar para mover que retorna las dimensiones actuales del nivel de acercamiento
+ * @param type $nivel nivel de zoom actual
+ * @param type $dimension dimension a actualizar deacuerdo al nivel de zoom
+ * @return type
+ */
+function mover($nivel, $dimension) {
+    while ($nivel > 0) {
+        $dimension = $dimension - $dimension * 0.1;
+        $nivel--;
+    }
+    return $dimension;
+}

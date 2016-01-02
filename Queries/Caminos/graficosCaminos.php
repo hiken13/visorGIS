@@ -20,8 +20,8 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi) {
-        $factor= 366468.447793805/$x;
+    function crearImagen($x, $y, $zi,$mx,$my) {
+        $factor = 366468.447793805 / $x;
         $img = imagecreatetruecolor($x, $y);
 
         $trans = imagecolorallocatealpha($img, 255, 255, 255, 127);
@@ -59,6 +59,17 @@ class graficos {
                 $x2 = ajustar($arrayX[$i + 1], $zi, $x);
                 $y1 = ajustar($arrayY[$i], $zi, $y);
                 $y2 = ajustar($arrayY[$i + 1], $zi, $y);
+                
+                $xAux = $x;
+                $yAux = $y;
+                $xAux = mover($zi, $xAux);
+                $yAux = mover($zi, $yAux);
+
+                
+                $x1-= ($xAux / 10) * $mx;
+                $x2-= ($xAux / 10) * $mx;
+                $y1-= ($yAux / 10) * $my;
+                $y2-= ($yAux / 10) * $my;
                 imageline($img, $x1, $y1, $x2, $y2, $white);
             }
         }
@@ -73,13 +84,26 @@ class graficos {
  * Funcion para ajustar los puntos devueltos por la consulta extendiendolos un 10% con
  * respecto a su distancia actual
  * @param int punto: punto para ajustar
- * @param float porcentaje: porcentaje de zoom
+ * @param float nivel: nivel de zoom
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje, $dimension) {
-    $borde = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
-    $punto = ($punto - ($borde * ($porcentaje * 10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
+function ajustar($punto, $nivel, $dimension) {
+
+    $i = $nivel; //nivel actual de zoom
+    while ($i > 0) {
+        $dimension = $dimension - $dimension * 0.1;
+        $punto = $punto + $punto * 0.1;
+        $punto = $punto - $dimension * 0.1;
+        $i-=1;
+    }
     return $punto;
+}
+
+function mover($nivel, $dimension) {
+    while ($nivel > 0) {
+        $dimension = $dimension - $dimension * 0.1;
+        $nivel--;
+    }
+    return $dimension;
 }

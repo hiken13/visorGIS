@@ -20,7 +20,7 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi, $mx, $my) {
+    function crearImagen($x, $y, $zi,$mx,$my) {
         $factor = 366468.447793805 / $x; //factor de division respecto a las divisiones
         $img = imagecreatetruecolor($x, $y);
 
@@ -51,8 +51,14 @@ class graficos {
             $row[0] = ajustar($row[0], $zi, $x);
             $row[1] = ajustar($row[1], $zi, $y);
 
-            $row[0]+= ($x / 10) * $mx;
-            $row[1]+= ($y / 10) * $my;
+            $xAux= $x;
+            $yAux= $y;
+            $xAux=  mover($zi, $xAux);
+            $yAux=  mover($zi, $yAux);
+            
+            $row[0]-= ($xAux / 10) * $mx;
+            $row[1]-= ($yAux / 10) * $my;
+          
             imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
         }
 
@@ -70,9 +76,22 @@ class graficos {
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $porcentaje, $dimension) {
-    $borde = $dimension / 10; //10% de la dimension
-    $punto = ($punto) + ($punto * $porcentaje); //ajustar el punto al porcentaje actual
-    $punto = ($punto - ($borde * ($porcentaje * 10))) + ($punto * $porcentaje); //expandir el punto de manera que se ajusat a las dimensiones
+function ajustar($punto, $nivel, $dimension) {
+
+    $i = $nivel; //nivel actual de zoom
+    while ($i > 0) {
+        $dimension = $dimension - $dimension * 0.1;
+        $punto = $punto + $punto * 0.1;
+        $punto = $punto - $dimension * 0.1;
+        $i-=1;
+    }
     return $punto;
+}
+
+function mover($nivel, $dimension){
+    while($nivel>0){
+        $dimension = $dimension - $dimension * 0.1;    
+        $nivel--;
+    }
+    return $dimension;
 }
