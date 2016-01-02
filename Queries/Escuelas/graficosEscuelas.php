@@ -48,16 +48,10 @@ class graficos {
 
         while ($row = pg_fetch_row($result)) {
 
-            $row[0] = ajustar($row[0], $zi, $x);
-            $row[1] = ajustar($row[1], $zi, $y);
-            $x3 = $x;
-            $y3 = $y;
-            $x3 = mover($zi, $x3);
-            $y3 = mover($zi, $y3);
-            $row[0]-= ($x3 / 10) * $mx;
-            $row[1]-= ($y3 / 10) * $my;
-            //$row[0]+= ($row[0] / 10) * $mx;//mover en x
-            // $row[1]+= ($row[1] / 10) * $my;//mover en y
+            $row[0] = ajustar($row[0], $zi, $x,$mx);
+            $row[1] = ajustar($row[1], $zi, $y,$my);
+           
+           
             imagefilledellipse($img, $row[0], $row[1], 6, 6, $green);
         }
 
@@ -70,21 +64,20 @@ class graficos {
  * Funcion para ajustar los puntos devueltos por la consulta extendiendolos un 10% con
  * respecto a su distancia actual
  * @param int punto: punto para ajustar
- * @param float nivel: nivel de zoom
- * @param float dimension: dimenciones actuales del panel, dadas por x o y
+ * @param  nivel: nivel de zoom
+ * @param  dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $nivel, $dimension) {
+function ajustar($punto, $nivel, $dimension,$m) {
 
     $i = $nivel; //nivel actual de zoom
+    $dimension = mover($nivel, $dimension);
     while ($i > 0) {
-        $dimension = $dimension - $dimension * 0.1;
         $punto = $punto + $punto * 0.1;
         $punto = $punto - $dimension * 0.1;
         $i-=1;
     }
-
-
+    $punto -= ($dimension/10) * $m;
     return $punto;
 }
 

@@ -48,16 +48,9 @@ class graficos {
         $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
 
         while ($row = pg_fetch_row($result)) {
-            $row[0] = ajustar($row[0], $zi, $x);
-            $row[1] = ajustar($row[1], $zi, $y);
-
-            $xAux= $x;
-            $yAux= $y;
-            $xAux=  mover($zi, $xAux);
-            $yAux=  mover($zi, $yAux);
-            
-            $row[0]-= ($xAux / 10) * $mx;
-            $row[1]-= ($yAux / 10) * $my;
+            $row[0] = ajustar($row[0], $zi, $x,$mx);
+            $row[1] = ajustar($row[1], $zi, $y,$my);
+           
           
             imagefilledellipse($img, $row[0], $row[1], 10, 10, $red);
         }
@@ -76,15 +69,16 @@ class graficos {
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $nivel, $dimension) {
+function ajustar($punto, $nivel, $dimension,$m) {
 
     $i = $nivel; //nivel actual de zoom
+    $dimension = mover($nivel, $dimension);
     while ($i > 0) {
-        $dimension = $dimension - $dimension * 0.1;
         $punto = $punto + $punto * 0.1;
         $punto = $punto - $dimension * 0.1;
         $i-=1;
     }
+    $punto -= ($dimension/10) * $m;
     return $punto;
 }
 

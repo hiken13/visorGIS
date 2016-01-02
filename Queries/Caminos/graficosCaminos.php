@@ -55,12 +55,12 @@ class graficos {
             $arrayY = explode(", ", $row[2]);
 
             for ($i = 0; $i < count($arrayX) - 1; ++$i) {
-                $x1 = ajustar($arrayX[$i], $zi, $x);
-                $x2 = ajustar($arrayX[$i + 1], $zi, $x);
-                $y1 = ajustar($arrayY[$i], $zi, $y);
-                $y2 = ajustar($arrayY[$i + 1], $zi, $y);
+            $x1 = ajustar($arrayX[$i], $zi, $x,$mx);
+                $x2 = ajustar($arrayX[$i + 1], $zi, $x,$mx);
+                $y1 = ajustar($arrayY[$i], $zi, $y,$my);
+                $y2 = ajustar($arrayY[$i + 1], $zi, $y,$my);
                 
-                $xAux = $x;
+                /*$xAux = $x;
                 $yAux = $y;
                 $xAux = mover($zi, $xAux);
                 $yAux = mover($zi, $yAux);
@@ -69,7 +69,7 @@ class graficos {
                 $x1-= ($xAux / 10) * $mx;
                 $x2-= ($xAux / 10) * $mx;
                 $y1-= ($yAux / 10) * $my;
-                $y2-= ($yAux / 10) * $my;
+                $y2-= ($yAux / 10) * $my;*/
                 imageline($img, $x1, $y1, $x2, $y2, $white);
             }
         }
@@ -88,18 +88,25 @@ class graficos {
  * @param float dimension: dimenciones actuales del panel, dadas por x o y
  * @return punto : punto ajustado
  */
-function ajustar($punto, $nivel, $dimension) {
+function ajustar($punto, $nivel, $dimension,$m) {
 
     $i = $nivel; //nivel actual de zoom
+    $dimension = mover($nivel, $dimension);
     while ($i > 0) {
-        $dimension = $dimension - $dimension * 0.1;
         $punto = $punto + $punto * 0.1;
         $punto = $punto - $dimension * 0.1;
         $i-=1;
     }
+    $punto -= ($dimension/10) * $m;
     return $punto;
 }
 
+/**
+ *Funcion Auxiliar para mover que retorna las dimensiones actuales del nivel de acercamiento
+ * @param type $nivel nivel de zoom actual
+ * @param type $dimension dimension a actualizar deacuerdo al nivel de zoom
+ * @return type
+ */
 function mover($nivel, $dimension) {
     while ($nivel > 0) {
         $dimension = $dimension - $dimension * 0.1;
