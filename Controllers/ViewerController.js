@@ -4,9 +4,20 @@
  * and open the template in the editor.
  */
 
-angular.module('visorGIS', [])
-        .controller('ControllerViewerGIS', function ($scope, $http)
+angular.module('visorGIS', ['FBAngular'])
+        .controller('ControllerViewerGIS', function ($scope, Fullscreen)
         {
+            $scope.goFullscreen = function () {
+
+                if (Fullscreen.isEnabled())
+                    Fullscreen.cancel();
+                else
+                    Fullscreen.all();
+
+                    // Set Fullscreen to a specific element (bad practice)
+                    //Fullscreen.enable(document.getElementById('body'));
+
+            };
             $scope.sizeX = 640; //tamaño inicial de x
             $scope.sizeY = 480; //tamaño inicial de y            
             $scope.zi = 0;
@@ -244,7 +255,7 @@ angular.module('visorGIS', [])
             /*
              * Combobox Dimension 
              */
-            $scope.months = ['300x300', '500x500','700x700','800x800','900x900','1000x1000'];
+            $scope.months = ['300x300', '500x500', '700x700', '800x800', '900x900', '1000x1000'];
         });//fin de controlador
 function isNumber(n) {
     return /^-?[\d.]+(?:e-?\d+)?$/.test(n);

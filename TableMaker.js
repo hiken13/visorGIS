@@ -18,38 +18,43 @@ function deleteRow(obj) {
     var index = obj.parentNode.parentNode.rowIndex;
     var table = document.getElementById("myTableData");
     table.deleteRow(index);
-
 }
 
-function addTable() {
+function addTable(dimension, filas, columnas) {
 
     var myTableDiv = document.getElementById("myDynamicTable");
 
     var table = document.createElement('TABLE');
-    table.border = '1';
+    //table.border = '1';
 
     var tableBody = document.createElement('TBODY');
     table.appendChild(tableBody);
     // Filas
-    var filas = 4   ;
     for (var i = 0; i < filas; i++) {
         var tr = document.createElement('TR');
         tableBody.appendChild(tr);
         // Columnas
-        var columnas = 4;
         for (var j = 0; j < columnas; j++) {
             var td = document.createElement('TD');
             td.width = '75';
-            td.appendChild(document.createTextNode("Cell " + i + "," + j));
+            //td.appendChild(document.createTextNode("(" + j + "," + (i + 1) + ") (" + (j + 1) + "," + i + ")" + " imagen: " + dimension / filas + " " + dimension / columnas));
+            var img = document.createElement('IMG');
+            img.src = "imagen.php?x=" + (dimension / filas) + "&y=" + (dimension / columnas) + "&x1=" + j + "&y1=" + (i + 1) + "&x2=" + (j + 1) + "&y2=" + i;
+            td.appendChild(img);
             tr.appendChild(td);
         }
     }
     myTableDiv.appendChild(table);
-
 }
 
 function load() {
 
     console.log("Page load finished");
 
+}
+
+function setColor() {
+    var div = document.getElementById("inicio");
+    var color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+    div.setAttribute("style", "background-color: " + color + ";");
 }
