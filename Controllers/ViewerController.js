@@ -11,8 +11,8 @@ angular.module('visorGIS', [])
             $scope.sizeY = 480; //tamaño inicial de y            
             $scope.zi = 0;
             $scope.opacidad = 1;
-            $scope.mx=0;
-            $scope.my=0;
+            $scope.mx = 0;
+            $scope.my = 0;
 
 
 
@@ -59,9 +59,9 @@ angular.module('visorGIS', [])
                     actualizar: false,
                     opacidad: 1
                 }
-                
+
             ];
-            
+
             /**
              * Funcion para cambiar el tamaño del panel, actualiza las capas cuya visibilidad esté 
              * activada
@@ -77,22 +77,21 @@ angular.module('visorGIS', [])
                         //si la capa actual tiene como estado visible, entonces actualizar
                         //el tamaño de la imagen de acuerdo a las dimesiones
                         if ($scope.capas[i].visible === true) {
-                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
+                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
                         }
                     }
-                }
-                else {
+                } else {
                     $scope.sizeX = 640;
                     $scope.sizeY = 480;
                     for (i = 0; i < $scope.capas.length; i++) {
                         //si la capa actual tiene como estado visible, entonces actualizar
                         //el tamaño de la imagen de acuerdo a las dimesiones
                         if ($scope.capas[i].visible === true) {
-                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
+                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
                         }
                     }
                 }
-            }
+            };
 
 
             /*
@@ -109,12 +108,11 @@ angular.module('visorGIS', [])
                     //si es la primera vez que se muestran
                     if ($scope.capas[id].url === "") {
                         //mostrar la capa requerida
-                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
+                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
                         console.log($scope.capas[id].url);
-                    }
-                    else if ($scope.capas[id].actualizar === true) {
+                    } else if ($scope.capas[id].actualizar === true) {
                         $scope.capas[id].actualizar = false;
-                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
+                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
                     }
                 }
 
@@ -124,7 +122,7 @@ angular.module('visorGIS', [])
                     $scope.capas[id].visible = false;
                 }
             };
-            
+
             /**
              * Funcion para ordenar las capas, sube la capa dado su id y sube la capa que tenía el
              * lugar de la capa actual
@@ -150,7 +148,7 @@ angular.module('visorGIS', [])
              * arrrreglo
              * @returns {undefined}
              */
-            $scope.bajar = function (id) {                
+            $scope.bajar = function (id) {
                 if (id < $scope.capas.length - 1) {
                     $scope.capas[id].prioridad = id + 1;
                     $scope.capas[id + 1].prioridad = id;
@@ -167,29 +165,27 @@ angular.module('visorGIS', [])
              * @param {type} ind indicador para saber si la operacion es de acercar,, alejar o resetear al zoom default
              * @returns {undefined}
              */
-            
+
             $scope.zoomIn = function (ind) {
-                
+
                 if (ind === 1) {
                     $scope.zi = $scope.zi + 1;
-                } else if (ind === 0 ) {
+                } else if (ind === 0) {
                     $scope.zi = $scope.zi - 1;
-                }
-                else {
+                } else {
                     $scope.zi = 0;
                 }
                 for (i = 0; i < $scope.capas.length; i++) {
                     if ($scope.capas[i].visible === true) {
-                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
-                    }
-                    else {
+                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                    } else {
                         if ($scope.capas[i].url !== "") {
                             $scope.capas[i].actualizar = true;
                         }
                     }
                 }
             };
-            
+
             /**
              * Funcion para aumentar la transparencia de una capa, dado su identificador
              * aumenta o disminuye en su estilo la opacidad de la misma
@@ -201,13 +197,12 @@ angular.module('visorGIS', [])
                 if (ind === 1 && $scope.capas[id].opacidad > 0) {
 
                     $scope.capas[id].opacidad -= 0.1;
-                }
-                else if(ind !== 1 && $scope.capas[id].opacidad<0.9){
-                    
+                } else if (ind !== 1 && $scope.capas[id].opacidad < 0.9) {
+
                     $scope.capas[id].opacidad += 0.1;
                 }
             };
-            
+
             /**
              * Funcion que suma y resta la cantidad de movientos a la izquierda que solicita el usuario
              * el movimiento se realiza en las coordenadas x,y
@@ -215,35 +210,81 @@ angular.module('visorGIS', [])
              * 
              * @returns {undefined}
              */
-            $scope.mov = function(ind){
+            $scope.mov = function (ind) {
                 // realizar el movimiento de bajar la imagen en x
                 // lo que da el efecto de que el visor se mueve hacia arriba
-                if(ind === 0){
-                    $scope.my+=1;
+                if (ind === 0) {
+                    $scope.my += 1;
                 }
                 // realicar el movimiento de la imagen hacia arriba
                 else if (ind === 1)
                 {
-                    $scope.my-=1;
+                    $scope.my -= 1;
                 }
-                
+
                 //izquierda
-                else if(ind === 3){
-                    $scope.mx +=1;
+                else if (ind === 3) {
+                    $scope.mx += 1;
                 }
                 //derecha
-                else if(ind === 4){
-                    $scope.mx -=1;
+                else if (ind === 4) {
+                    $scope.mx -= 1;
                 }
                 for (i = 0; i < $scope.capas.length; i++) {
                     if ($scope.capas[i].visible === true) {
-                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi+"&mx="+$scope.mx+"&my="+$scope.my;
-                    }
-                    else {
+                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                    } else {
                         if ($scope.capas[i].url !== "") {
                             $scope.capas[i].actualizar = true;
                         }
                     }
                 }
             };
+
+            /*
+             * Combobox Dimension 
+             */
+            $scope.months = ['300x300', '500x500','700x700','800x800','900x900','1000x1000'];
         });//fin de controlador
+function isNumber(n) {
+    return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
+}
+
+function add(a) {
+    var input;
+    var newInput;
+    if (a === 'r')
+        input = document.getElementById("rows");
+    else
+        input = document.getElementById("columns");
+
+    newInput = input.value;
+
+    if (isNumber(input.value))
+        newInput = parseInt(input.value) + 1;
+    else
+        newInput = "3";
+
+    input.value = newInput;
+}
+
+function sub(a) {
+    var input;
+    var newInput;
+    if (a === 'r')
+        input = document.getElementById("rows");
+    else
+        input = document.getElementById("columns");
+
+    newInput = input.value;
+
+    if (isNumber(input.value)) {
+        if (parseInt(input.value) !== 3)
+            newInput = parseInt(input.value) - 1;
+        else
+            newInput = "";
+    } else
+        newInput = "3";
+
+    input.value = newInput;
+}
