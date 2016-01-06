@@ -164,6 +164,7 @@ from (select ((ST_DumpPoints((ST_GeometryN(geom,1)))).geom) geom, gid
     return ($img);
 }
 
+
 function crearImagenPoligono($x, $y, $zi, $mx, $my, $capa, $X1, $Y1, $X2, $Y2, $filas, $columnas) {
     $factor = 366468.447793805 / $x;
     $img = imagecreatetruecolor($x, $y);

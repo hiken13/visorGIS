@@ -4,6 +4,7 @@ require './graficos.php';
 //http://localhost/GIS/imagen.php?x=1024&y=1024&zi=0.1&mx=2&my=2
 header('Content-Type: image/png');
 
+
 $x = $_GET['x'];
 $y = $_GET['y'];
 $zi = $_GET['zi'];
