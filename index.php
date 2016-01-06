@@ -17,7 +17,7 @@
     </head>
     <body id="body" class="" style="background-color: rgb(29,31,33)">
         <div Fullscreen></div >
-        <div style="padding: 1%; background-color: gray; height:100%; width: 20%;" class="pull-left">
+        <div style="padding: 1%; background-color: gray; height:100%; width: 25%;" class="pull-left">
             <table>
                 <tr ng-repeat="capa in capas|orderBy:'prioridad':true">
                     <td>
@@ -110,7 +110,7 @@
         </div>
 
 
-        <div style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 20.4%; margin-top: 1%;">
+        <div style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 25.4%; margin-top: 1%;">
 
             <div ng-repeat="capa in capas">
                 <div style="position: absolute" ng-show="capa.visible">
