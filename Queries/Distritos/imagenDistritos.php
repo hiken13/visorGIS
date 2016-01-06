@@ -1,6 +1,6 @@
 <?php
 //http://localhost:trunk/Queries/Distritos/imagenDistritos.php?x=1280&y=630
-require './graficosDistritos.php';
+/*require './graficosDistritos.php';
 
 header('Content-Type: image/png');
 
@@ -14,4 +14,4 @@ $img = $graficos->crearImagen($x, $y,$zi,$mx,$my);
 
 echo imagepng($img);
 imagedestroy($img);
-?>
+?>*/

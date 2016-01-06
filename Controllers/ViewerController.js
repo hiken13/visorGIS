@@ -7,19 +7,31 @@
 angular.module('visorGIS', ['FBAngular'])
         .controller('ControllerViewerGIS', function ($scope, Fullscreen)
         {
+
+            /*
+             * Combobox Dimension 
+             */
+            $scope.dim = ['300x300', '500x500', '700x700', '800x800', '900x900', '1000x1000'];
+            $scope.selected = '300x300';
+            $scope.dimension = 300;
+            $scope.update = function () {
+                $scope.dimension = parseInt($scope.selected.substring(0, $scope.selected.indexOf("x")));
+                $scope.sizeX = $scope.dimension; //tamaño inicial de x
+                $scope.sizeY = $scope.dimension; //tamaño inicial de y 
+                $scope.cambiarTam();
+                //console.log($scope.dimension);
+            };
+
             $scope.goFullscreen = function () {
 
                 if (Fullscreen.isEnabled())
                     Fullscreen.cancel();
                 else
                     Fullscreen.all();
-
-                // Set Fullscreen to a specific element (bad practice)
-                //Fullscreen.enable(document.getElementById('body'));
-
             };
-            $scope.sizeX = 640; //tamaño inicial de x
-            $scope.sizeY = 640; //tamaño inicial de y            
+
+            $scope.sizeX = $scope.dimension; //tamaño inicial de x
+            $scope.sizeY = $scope.dimension; //tamaño inicial de y            
             $scope.zi = 0;
             $scope.opacidad = 1;
             $scope.mx = 0;
@@ -55,15 +67,11 @@ angular.module('visorGIS', ['FBAngular'])
             };
             $scope.arrayFilas = $scope.num2json($scope.filas);
             $scope.arrayColumnas = $scope.num2json($scope.columnas);
-            
-            $scope.getImgUrl = function (url, x1, y1, x2, y2){
-                return url +  ($scope.sizeX / $scope.filas) + "&y=" + ($scope.sizeX / $scope.columnas) + "&x1=" + x1 + "&y1=" + y1 + "&x2=" + x2 + "&y2=" + y2;
-            };
-            
+
             //arreglo que contiene capas, representadas por objetos
             $scope.capas = [
                 {
-                    nombre: "Rios", //nombre de la capa
+                    nombre: "rios", //nombre de la capa
                     prioridad: 0, // prioridad de la capa
                     visible: false, // visible u opculto
                     url: "", // dirección para crear la imagen
@@ -71,7 +79,7 @@ angular.module('visorGIS', ['FBAngular'])
                     opacidad: 1
                 },
                 {
-                    nombre: "Caminos",
+                    nombre: "caminos",
                     prioridad: 1,
                     visible: false,
                     url: "",
@@ -80,7 +88,7 @@ angular.module('visorGIS', ['FBAngular'])
 
                 },
                 {
-                    nombre: "Distritos",
+                    nombre: "distritos",
                     prioridad: 2,
                     visible: false,
                     url: "",
@@ -88,7 +96,7 @@ angular.module('visorGIS', ['FBAngular'])
                     opacidad: 1
                 },
                 {
-                    nombre: "Escuelas",
+                    nombre: "escuelas",
                     prioridad: 3,
                     visible: false,
                     url: "",
@@ -96,7 +104,7 @@ angular.module('visorGIS', ['FBAngular'])
                     opacidad: 1
                 },
                 {
-                    nombre: "Hospitales",
+                    nombre: "hospitales",
                     prioridad: 4,
                     visible: false,
                     url: "",
@@ -113,29 +121,46 @@ angular.module('visorGIS', ['FBAngular'])
              */
             $scope.cambiarTam = function () {
 
-                if ($scope.sizeX === 640) {
-                    $scope.sizeX = 1024;
-                    $scope.sizeY = 940;
-
-                    for (i = 0; i < $scope.capas.length; i++) {
-                        //si la capa actual tiene como estado visible, entonces actualizar
-                        //el tamaño de la imagen de acuerdo a las dimesiones
-                        if ($scope.capas[i].visible === true) {
-                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
-                        }
-                    }
-                } else {
-                    $scope.sizeX = 640;
-                    $scope.sizeY = 480;
-                    for (i = 0; i < $scope.capas.length; i++) {
-                        //si la capa actual tiene como estado visible, entonces actualizar
-                        //el tamaño de la imagen de acuerdo a las dimesiones
-                        if ($scope.capas[i].visible === true) {
-                            $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                for (i = 0; i < $scope.capas.length; i++) {
+                    //si la capa actual tiene como estado visible, entonces actualizar
+                    //el tamaño de la imagen de acuerdo a las dimesiones
+                    if ($scope.capas[i].visible === true) {
+                        if ($scope.capas[i].nombre === "caminos" || $scope.capas[i].nombre === "rios") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=l";
+                        } else if ($scope.capas[i].nombre === "escuelas" || $scope.capas[i].nombre === "hospitales") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=p";
+                        } else if ($scope.capas[i].nombre === "distritos") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=po";
                         }
                     }
                 }
+
             };
+            /*$scope.cambiarTam = function () {
+             
+             if ($scope.sizeX === 640) {
+             $scope.sizeX = 1024;
+             $scope.sizeY = 940;
+             
+             for (i = 0; i < $scope.capas.length; i++) {
+             //si la capa actual tiene como estado visible, entonces actualizar
+             //el tamaño de la imagen de acuerdo a las dimesiones
+             if ($scope.capas[i].visible === true) {
+             $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+             }
+             }
+             } else {
+             $scope.sizeX = 640;
+             $scope.sizeY = 480;
+             for (i = 0; i < $scope.capas.length; i++) {
+             //si la capa actual tiene como estado visible, entonces actualizar
+             //el tamaño de la imagen de acuerdo a las dimesiones
+             if ($scope.capas[i].visible === true) {
+             $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+             }
+             }
+             }
+             };*/
 
 
             /*
@@ -152,12 +177,24 @@ angular.module('visorGIS', ['FBAngular'])
                     //si es la primera vez que se muestran
                     if ($scope.capas[id].url === "") {
                         //mostrar la capa requerida
-                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                        if ($scope.capas[id].nombre === "caminos" || $scope.capas[id].nombre === "rios") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=l";
+                        } else if ($scope.capas[id].nombre === "escuelas" || $scope.capas[id].nombre === "hospitales") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=p";
+                        } else if ($scope.capas[id].nombre === "distritos") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=po";
+                        }
                         console.log($scope.capas[id].url);
                     } else if ($scope.capas[id].actualizar === true) {
+                        console.log($scope.capas[id].url);
                         $scope.capas[id].actualizar = false;
-                        $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
-                        //"imagen.php?x=" + (dimension / filas) + "&y=" + (dimension / columnas) + "&x1=" + j + "&y1=" + (i + 1) + "&x2=" + (j + 1) + "&y2=" + i;
+                        if ($scope.capas[id].nombre === "caminos" || $scope.capas[id].nombre === "rios") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=l";
+                        } else if ($scope.capas[id].nombre === "escuelas" || $scope.capas[id].nombre === "hospitales") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=p";
+                        } else if ($scope.capas[id].nombre === "distritos") {
+                            $scope.capas[id].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[id].nombre + "&tipo=po";
+                        }
                     }
                 }
 
@@ -222,7 +259,13 @@ angular.module('visorGIS', ['FBAngular'])
                 }
                 for (i = 0; i < $scope.capas.length; i++) {
                     if ($scope.capas[i].visible === true) {
-                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                        if ($scope.capas[i].nombre === "caminos" || $scope.capas[i].nombre === "rios") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=l";
+                        } else if ($scope.capas[i].nombre === "escuelas" || $scope.capas[i].nombre === "hospitales") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=p";
+                        } else if ($scope.capas[i].nombre === "distritos") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=po";
+                        }
                     } else {
                         if ($scope.capas[i].url !== "") {
                             $scope.capas[i].actualizar = true;
@@ -277,7 +320,13 @@ angular.module('visorGIS', ['FBAngular'])
                 }
                 for (i = 0; i < $scope.capas.length; i++) {
                     if ($scope.capas[i].visible === true) {
-                        $scope.capas[i].url = "Queries/" + $scope.capas[i].nombre + "/imagen" + $scope.capas[i].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                        if ($scope.capas[i].nombre === "caminos" || $scope.capas[i].nombre === "rios") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=l";
+                        } else if ($scope.capas[i].nombre === "escuelas" || $scope.capas[i].nombre === "hospitales") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=p";
+                        } else if ($scope.capas[i].nombre === "distritos") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=po";
+                        }
                     } else {
                         if ($scope.capas[i].url !== "") {
                             $scope.capas[i].actualizar = true;
@@ -285,9 +334,34 @@ angular.module('visorGIS', ['FBAngular'])
                     }
                 }
             };
-
             /*
-             * Combobox Dimension 
+             * Funcion para enfocar la capa seleccionada
              */
-            $scope.months = ['300x300', '500x500', '700x700', '800x800', '900x900', '1000x1000'];
+            $scope.enfocar = function (id) {
+
+                $scope.capas[id].prioridad = 4;
+                $scope.capas[4].prioridad = id;
+                var temp = $scope.capas[id];
+                $scope.capas[id] = $scope.capas[4];
+                $scope.capas[4] = temp;
+                $scope.zi = -1;
+                
+                for (i = 0; i < $scope.capas.length; i++) {
+                    //si la capa actual tiene como estado visible, entonces actualizar
+                    //el tamaño de la imagen de acuerdo a las dimesiones
+                    if ($scope.capas[i].visible === true) {
+                        if ($scope.capas[i].nombre === "caminos" || $scope.capas[i].nombre === "rios") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=l";
+                        } else if ($scope.capas[i].nombre === "escuelas" || $scope.capas[i].nombre === "hospitales") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=p";
+                        } else if ($scope.capas[i].nombre === "distritos") {
+                            $scope.capas[i].url = "Queries/imagen.php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my + "&capa=" + $scope.capas[i].nombre + "&tipo=po";
+                        }
+                    }
+                    else{}
+                }
+
+            };
+
+
         });//fin de controlador

@@ -7,7 +7,7 @@
         <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <script src="./Controllers/ViewerController.js"></script>
-        <script type="text/javascript" src="./TableMaker.js"></script>
+        
 
 
         <!--link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"  rgb(29,31,33)-->
@@ -29,6 +29,7 @@
                         <a href="#" class="btn-sm btn-default  glyphicon glyphicon-arrow-down" ng-click="subir(capa.prioridad)"></a>                        
                         <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia(capa.prioridad, 1)">tr+</a>
                         <a class="btn btn-default btn-sm" ng-click="aumentarTransparencia(capa.prioridad, 0)">tr-</a>
+                        <a href="#" class="btn-sm btn-default glyphicon glyphicon-screenshot" ng-click="enfocar(capa.prioridad)"></a>
                         <a href="#" class="btn-sm btn-default " ng-class="capa.visible ? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close'"
                            ng-click="controlarVisualizacion(capa.prioridad)"></a>                        
                     </td>
@@ -61,7 +62,7 @@
                     </tr>
                 </table>
 
-                <table style="margin: 2%;width: 63%">
+                <!--table style="margin: 2%;width: 63%">
                     <tr>
                         <td >
                             <input  id="rows" type="text" class="form-control" placeholder="Filas" aria-describedby="basic-addon1" disabled ng-model="filas">
@@ -92,7 +93,7 @@
                             </button>
                         </td>
                     </tr>
-                </table>
+                </table-->
                 <h1 class="label label-primary"> Zoom </h1>
 
                 <div style="margin: 2%" class="btn-group">                
@@ -102,23 +103,24 @@
                 </div>
                 <div>
                     <h1 class="label label-primary">Dimension</h1>
-                    <select style="margin: 2%" ng-model="selected" ng-options="opt as opt for opt in months" ng-init="selected = '300x300'"></select>
+                    <select ng-change="update()"style="margin: 2%" ng-model="selected" ng-options="opt as opt for opt in dim" ng-init="selected = '300x300'"></select>
                     <!--h3>You have selected : {{selected}}</h3-->
                 </div>
 
             </center>
         </div>
 
-        
+
 
         <div style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 25.4%; margin-top: 1%;">
+
 
             <div ng-repeat="capa in capas">
                 <div style="position: absolute" ng-show="capa.visible">
                     <table>
-                        <tr ng-repeat="i in arrayFilas">
-                            <td ng-repeat="j in arrayColumnas">                                
-                                <img style="opacity: {{capa.opacidad}}" src="{{getImgUrl(capa.url, j.valor, i.valor + 1, j.valor + 1, i.valor )}}" width="{{sizeX}}" height="{{sizeY}}"/>
+                        <tr>
+                            <td>                                
+                                <img style="opacity: {{capa.opacidad}}" src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}"/>
                             </td>
                         </tr>
                     </table>

@@ -12,15 +12,10 @@ $mx = $_GET['mx'];
 $my = $_GET['my'];
 $capa = $_GET['capa'];
 $type = $_GET['tipo'];
-$X1 = $_GET['x1'];
-$Y1 = $_GET['y1'];
-$X2 = $_GET['x2'];
-$Y2 = $_GET['y2'];
-$filas = $_GET['filas'];
-$columnas = $_GET['columnas'];
+
 
 $graficos = new graficos();
-$img = $graficos->crearImagen($x, $y, $zi, $mx, $my, $capa, $type, $X1, $Y1, $X2, $Y2, $filas, $columnas);
+$img = $graficos->crearImagen($x, $y, $zi, $mx, $my, $capa, $type);
 
 echo imagepng($img);
 //imagedestroy($img);
