@@ -14,19 +14,52 @@ angular.module('visorGIS', ['FBAngular'])
                 else
                     Fullscreen.all();
 
-                    // Set Fullscreen to a specific element (bad practice)
-                    //Fullscreen.enable(document.getElementById('body'));
+                // Set Fullscreen to a specific element (bad practice)
+                //Fullscreen.enable(document.getElementById('body'));
 
             };
             $scope.sizeX = 640; //tamaño inicial de x
-            $scope.sizeY = 480; //tamaño inicial de y            
+            $scope.sizeY = 640; //tamaño inicial de y            
             $scope.zi = 0;
             $scope.opacidad = 1;
             $scope.mx = 0;
             $scope.my = 0;
+            $scope.filas = 3;
+            $scope.columnas = 3;
 
 
+            $scope.addRow = function () {
+                $scope.filas += 1;
+            };
+            $scope.subRow = function () {
+                if ($scope.filas !== 3)
+                    $scope.filas -= 1;
+            };
+            $scope.addColumn = function () {
+                $scope.columnas += 1;
+            };
+            $scope.subColumn = function () {
+                if ($scope.columnas !== 3)
+                    $scope.columnas -= 1;
 
+            };
+            $scope.num2json = function (num) {
+                var myjson = [];
+                for (var j = 0; j < num; j++) {
+                    item = {};
+                    item ["valor"] = j;
+
+                    myjson.push(item);
+                }
+                return myjson;
+            };
+            $scope.arrayFilas = $scope.num2json($scope.filas);
+            $scope.arrayColumnas = $scope.num2json($scope.columnas);
+            
+            $scope.getImgUrl = function (url, x1, y1, x2, y2){
+                return url +  ($scope.sizeX / $scope.filas) + "&y=" + ($scope.sizeX / $scope.columnas) + "&x1=" + x1 + "&y1=" + y1 + "&x2=" + x2 + "&y2=" + y2;
+            };
+            
             //arreglo que contiene capas, representadas por objetos
             $scope.capas = [
                 {
@@ -124,6 +157,7 @@ angular.module('visorGIS', ['FBAngular'])
                     } else if ($scope.capas[id].actualizar === true) {
                         $scope.capas[id].actualizar = false;
                         $scope.capas[id].url = "Queries/" + $scope.capas[id].nombre + "/imagen" + $scope.capas[id].nombre + ".php?x=" + $scope.sizeX + "&y=" + $scope.sizeY + "&zi=" + $scope.zi + "&mx=" + $scope.mx + "&my=" + $scope.my;
+                        //"imagen.php?x=" + (dimension / filas) + "&y=" + (dimension / columnas) + "&x1=" + j + "&y1=" + (i + 1) + "&x2=" + (j + 1) + "&y2=" + i;
                     }
                 }
 
@@ -257,45 +291,3 @@ angular.module('visorGIS', ['FBAngular'])
              */
             $scope.months = ['300x300', '500x500', '700x700', '800x800', '900x900', '1000x1000'];
         });//fin de controlador
-function isNumber(n) {
-    return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
-}
-
-function add(a) {
-    var input;
-    var newInput;
-    if (a === 'r')
-        input = document.getElementById("rows");
-    else
-        input = document.getElementById("columns");
-
-    newInput = input.value;
-
-    if (isNumber(input.value))
-        newInput = parseInt(input.value) + 1;
-    else
-        newInput = "3";
-
-    input.value = newInput;
-}
-
-function sub(a) {
-    var input;
-    var newInput;
-    if (a === 'r')
-        input = document.getElementById("rows");
-    else
-        input = document.getElementById("columns");
-
-    newInput = input.value;
-
-    if (isNumber(input.value)) {
-        if (parseInt(input.value) !== 3)
-            newInput = parseInt(input.value) - 1;
-        else
-            newInput = "";
-    } else
-        newInput = "3";
-
-    input.value = newInput;
-}

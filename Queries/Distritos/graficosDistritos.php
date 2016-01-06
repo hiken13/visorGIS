@@ -8,7 +8,7 @@ class graficos {
      * @param inty $y : Alto
      * @return image : i magen resultante
      */
-    function crearImagen($x, $y, $zi,$mx,$my) {
+    function crearImagen($x, $y, $zi, $mx, $my) {
         $factor = 366468.447793805 / $x;
         $img = imagecreatetruecolor($x, $y);
         //$fondo = imagecolorallocate($img, 0, 0, 0);     
@@ -52,7 +52,7 @@ class graficos {
             $yAux = $y;
             $xAux = mover($zi, $xAux);
             $yAux = mover($zi, $yAux);
-            
+
             $row[2]-= ($xAux / 10) * $mx;
             $row[3]-= ($yAux / 10) * $my;
 
@@ -120,8 +120,9 @@ function ajustar($punto, $nivel, $dimension) {
     }
     return $punto;
 }
+
 /**
- *Funcion Auxiliar para mover que retorna las dimensiones actuales del nivel de acercamiento
+ * Funcion Auxiliar para mover que retorna las dimensiones actuales del nivel de acercamiento
  * @param type $nivel nivel de zoom actual
  * @param type $dimension dimension a actualizar deacuerdo al nivel de zoom
  * @return type
@@ -132,4 +133,45 @@ function mover($nivel, $dimension) {
         $nivel--;
     }
     return $dimension;
+}
+
+function crearImagencarlos($x, $y, $X1, $Y1, $X2, $Y2) {
+    $img = imagecreatetruecolor($x, $y);
+    $fondo = imagecolorallocate($img, 0, 0, 0);
+    $relleno = imagecolorallocate($img, 0, 255, 0);
+    $host = 'localhost';
+    $db = 'cursoGIS';
+    $usr = 'postgres';
+    $pass = '12345';
+    $strconn = "host=$host port=5432 dbname=$db user=$usr password=$pass";
+    $conn = pg_connect($strconn) or die("Error de Conexion con la base de datos");
+    $fila = 3;
+    $query = "SELECT gid, ndistrito, st_astext(geom) as geom FROM (SELECT gid, ndistrito, geom FROM distritos where geom && ST_SetSRID(ST_MakeBox2D(ST_Point( 283585.639702539 + (((658921.833302539 - 283585.639702539)/$fila)*$X1), 1241131.13684006 - (((1241131.13684006 - 889283.653040062)/$fila)*$Y1) ),ST_Point( 283585.639702539 + (((658921.833302539 - 283585.639702539)/$fila)*$X2), 1241131.13684006 - (((1241131.13684006 - 889283.653040062)/$fila)*$Y2) )), 5367) and ndistrito not in('', 'NA')) con";
+
+    $result = pg_query($conn, $query) or die("Error al ejecutar la consulta");
+
+    $pila = array();
+    $i = 0;
+    $row = pg_fetch_all($result);
+    imagefilledrectangle($img, 0, 0, $x, $y, $fondo);
+
+    foreach ($row as &$valor) {
+        $geom = $valor["geom"];
+        //echo $geom;
+        $query2 = "SELECT ( st_x( (ST_DumpPoints(geom)).geom )-(283585.639702539 + (((658921.833302539 - 283585.639702539)/$fila)*$X1) ) )/586.4628025000000000 as x,(st_y( (ST_DumpPoints(geom)).geom )-(889283.653040062 - (((1241131.13684006 - 889283.653040062)/$fila)*$Y2) ) )/586.4628025000000000 as y FROM ST_GeomFromText('$geom') as geom";
+        $result2 = pg_query($conn, $query2) or die("Error al ejecutar la consulta 2");
+
+        while ($row2 = pg_fetch_row($result2)) {
+            $pila[$i] = $row2[0];
+            $i++;
+            $pila[$i] = 600 - $row2[1];
+            $i++;
+        }
+        imagefilledpolygon($img, $pila, count($pila) / 2, $relleno);
+        unset($pila);
+        $pila = array();
+        $i = 0;
+    }
+
+    return ($img);
 }

@@ -58,3 +58,46 @@ function setColor() {
     var color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
     div.setAttribute("style", "background-color: " + color + ";");
 }
+/*
+function isNumber(n) {
+    return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
+}
+
+function add(a) {
+    var input;
+    var newInput;
+    if (a === 'r')
+        input = document.getElementById("rows");
+    else
+        input = document.getElementById("columns");
+
+    newInput = input.value;
+
+    if (isNumber(input.value))
+        newInput = parseInt(input.value) + 1;
+    else
+        newInput = "3";
+
+    input.value = newInput;
+}
+
+function sub(a) {
+    var input;
+    var newInput;
+    if (a === 'r')
+        input = document.getElementById("rows");
+    else
+        input = document.getElementById("columns");
+
+    newInput = input.value;
+
+    if (isNumber(input.value)) {
+        if (parseInt(input.value) !== 3)
+            newInput = parseInt(input.value) - 1;
+        else
+            newInput = "";
+    } else
+        newInput = "3";
+
+    input.value = newInput;
+}*/

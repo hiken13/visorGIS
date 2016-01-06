@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
 <html ng-app="visorGIS" ng-controller="ControllerViewerGIS">
     <head >
 
@@ -70,30 +64,30 @@ and open the template in the editor.
                 <table style="margin: 2%;width: 63%">
                     <tr>
                         <td >
-                            <input  id="rows" type="text" class="form-control" placeholder="Filas" aria-describedby="basic-addon1" disabled>
+                            <input  id="rows" type="text" class="form-control" placeholder="Filas" aria-describedby="basic-addon1" disabled ng-model="filas">
                         </td>
                         <td>
-                            <button onclick="add('r')" type="button" class="btn btn-default btn-default">
+                            <button ng-click="addRow()"  type="button" class="btn btn-default btn-default">
                                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                             </button>
                         </td>
                         <td>
-                            <button onclick="sub('r')" type="button" class="btn btn-default btn-default">
+                            <button ng-click="subRow()" type="button" class="btn btn-default btn-default">
                                 <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
                             </button>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            <input  id="columns" type="text" class="form-control" placeholder="Columnas" aria-describedby="basic-addon1" disabled>
+                            <input  id="columns" type="text" class="form-control" placeholder="Columnas" aria-describedby="basic-addon1" disabled ng-model="columnas">
                         </td>
                         <td>
-                            <button onclick="add('c')" type="button" class="btn btn-default btn-default">
+                            <button ng-click="addColumn()" type="button" class="btn btn-default btn-default">
                                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                             </button>
                         </td>
                         <td>
-                            <button onclick="sub('c')" type="button" class="btn btn-default btn-default">
+                            <button ng-click="subColumn()" type="button" class="btn btn-default btn-default">
                                 <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
                             </button>
                         </td>
@@ -119,14 +113,16 @@ and open the template in the editor.
         <div style="background-color: gray;height:{{sizeY}}px; width:{{sizeX}}px; position: relative; left: 20.4%; margin-top: 1%;">
 
             <div ng-repeat="capa in capas">
-                <table style="position: absolute" ng-show="capa.visible">
-                    <tr>
-                        <td>
-                            <img style="opacity: {{capa.opacidad}}"   src="{{capa.url}}" width="{{sizeX}}" height="{{sizeY}}" />   
-                        </td>
-                    </tr>                   
-                </table>            
-            </div>  
+                <div style="position: absolute" ng-show="capa.visible">
+                    <table>
+                        <tr ng-repeat="i in arrayFilas">
+                            <td ng-repeat="j in arrayColumnas">                                
+                                <img style="opacity: {{capa.opacidad}}" src="{{getImgUrl(capa.url, j.valor, i.valor + 1, j.valor + 1, i.valor )}}" width="{{sizeX}}" height="{{sizeY}}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
         </div>
 
